@@ -7,7 +7,8 @@ const getDefaultState = () => {
   return {
     token: getToken(),
     name: '',
-    avatar: ''
+    avatar: '',
+    role: 'editor'
   }
 }
 
@@ -25,6 +26,9 @@ const mutations = {
   },
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
+  },
+  SET_ROLE: (state, role) => {
+    state.role = role
   }
 }
 
@@ -65,10 +69,10 @@ const actions = {
           reject('校验失败，请重新登录！')
         }
 
-        const { name, avatar } = data
-
-        commit('SET_NAME', name)
-        commit('SET_AVATAR', avatar)
+        const { name, account, avatar, role } = data
+        commit('SET_NAME', name || account)
+        commit('SET_AVATAR', avatar || '/image/manage-ico.jpg')
+        commit('SET_ROLE', role)
         resolve(data)
       }).catch(error => {
         reject(error)
