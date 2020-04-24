@@ -1,0 +1,34 @@
+<template>
+  <el-button :type="type" :size="calcSize" :icon="icon" @click="handleClick">
+    <slot />
+  </el-button>
+</template>
+<script>
+export default {
+  name: 'ControlBtn',
+  props: {
+    type: {
+      type: String,
+      default: 'primary'
+    },
+    size: {
+      type: String,
+      default: 'small'
+    },
+    icon: {
+      type: String,
+      default: ''
+    }
+  },
+  computed: {
+    calcSize () {
+      return this.$parent.$attrs.size ? this.$parent.$attrs.size : this.size
+    }
+  },
+  methods: {
+    handleClick (evt) {
+      this.$emit('click', evt)
+    }
+  }
+}
+</script>
