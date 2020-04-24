@@ -1,8 +1,8 @@
 {
-  "name": "vue-admin-template",
-  "version": "4.2.1",
-  "description": "A vue admin template with Element UI & axios & iconfont & permission control & lint",
-  "author": "Pan <panfree23@gmail.com>",
+  "name": "restful-cms-koa-fe-manage",
+  "version": "1.0.0",
+  "description": "manage fe for restful-cms-koa, base of vue-admin-template",
+  "author": "FungLeo <web@fengcms.com>",
   "license": "MIT",
   "scripts": {
     "dev": "vue-cli-service serve",
