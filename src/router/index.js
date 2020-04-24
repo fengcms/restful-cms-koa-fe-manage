@@ -54,6 +54,15 @@ export const constantRoutes = [
       meta: { title: '后台首页', icon: 'dashboard' }
     }]
   },
+  {
+    path: '/article',
+    component: Layout,
+    children: [{
+      path: '',
+      component: () => import('@/views/article/list'),
+      meta: { title: '文章列表', icon: 'dashboard' }
+    }]
+  },
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }

@@ -8,7 +8,8 @@ const getDefaultState = () => {
     token: getToken(),
     name: '',
     avatar: '',
-    role: 'editor'
+    role: 'editor',
+    rsaKey: ''
   }
 }
 
@@ -29,6 +30,9 @@ const mutations = {
   },
   SET_ROLE: (state, role) => {
     state.role = role
+  },
+  SET_RSA_KEY: (state, rsaKey) => {
+    state.rsaKey = rsaKey
   }
 }
 
@@ -39,8 +43,9 @@ const actions = {
     return new Promise((resolve, reject) => {
       // 首先读取 rsa 公钥
       getRsaKey().then(r => {
-        // 使用 rsa 公钥加密密码
         const key = r.data
+        commit('SET_RSA_KEY', key)
+        // 使用 rsa 公钥加密密码
         const JSE = new JSEncrypt()
         JSE.setPublicKey(key)
         const enPw = JSE.encrypt(password)

@@ -2,6 +2,7 @@ import axios from 'axios'
 import { MessageBox, Message } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
+import { filterNull } from '@/utils/tools'
 // create an axios instance
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
@@ -15,6 +16,8 @@ service.interceptors.request.use(
     if (store.getters.token) {
       config.headers['X-Token'] = getToken()
     }
+    config.data = filterNull(config.data)
+    config.params = filterNull(config.params)
     return config
   },
   error => {

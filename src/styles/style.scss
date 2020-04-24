@@ -1,0 +1,92 @@
+.page-main {
+  padding: 15px;
+  .page-table {}
+  .page-pagination {
+    padding: 15px 0;
+    .el-pagination {
+      text-align: center;
+    }
+  }
+  .page-search-box {
+    padding-top: 10px;clear: both;
+  }
+  .checkbox-group-box {
+    font-size: 14px;box-shadow: 0 0 0 1px #ddd inset;background: #fff;
+    &-title {
+      font-weight: bold;background: #f0f0f0;box-shadow: 0 0 0 1px #ddd inset;
+    }
+  }
+}
+.tright {
+  text-align: right;
+}
+.mb20 {
+  margin-bottom: 20px;
+}
+.tag_title {
+  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+  font-weight: bold;
+  color: #909399;
+  font-size: 14px;
+}
+
+:focus {
+  outline:0;
+}
+
+.niao-table {
+  border-collapse: collapse;width: 100%;text-align: center;font-size: 13px;line-height: 1.8;
+  &, th, td {
+    border: 1px solid #ddd;
+  }
+  th, td {
+    padding: 5px 8px;
+  }
+  tr {
+    &:nth-child(2n + 1) {
+      background: #f9f9f9;
+    }
+  }
+  &.niao-table-vertical {
+    th {
+      background: #f9f9f9;text-align: right;
+    }
+    td {
+      background: #fff;text-align: left;
+    }
+  }
+  .niao-table-btn {
+    color: #409EFF;font-weight: bold;cursor: pointer;display: inline-block;
+    &:not(:first-child) {
+      margin-left: 3px;
+    }
+    &:not(:last-child) {
+      margin-right: 3px;
+    }
+  }
+}
+
+.time-line-content {
+  h4 {
+    margin: 0;
+    small {
+      color: #999;
+    }
+  }
+  p {
+    padding: 8px 0 0;font-size: 13px;margin: 0;
+  }
+}
+
+.detail-dialog .el-dialog__body{
+  padding-top: 0;
+}
+.detail-dialog-submit .el-dialog__body{
+  padding-top: 0;padding-bottom: 0;
+}
+.el-input-number.is-without-controls .el-input__inner {
+  text-align: left;
+}
+.form-item-unit {
+  position: absolute;right: 2px;top: 0;
+}

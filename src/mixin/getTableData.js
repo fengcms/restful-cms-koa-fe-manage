@@ -10,12 +10,12 @@ export default {
       tableData: [],
       searchItems: [],
       pageParams: {
-        page: 1,
+        page: 0,
         pageSize: PageSize
       },
       pageResult: {
         count: 0,
-        pageSize: 10
+        pageSize: PageSize
       },
       tableLoading: true,
       selectionArray: [],
@@ -42,8 +42,8 @@ export default {
       this.tableLoading = true
       request({
         url: apiName,
-        method: 'post',
-        data: params
+        method: 'get',
+        params: params
       }).then(r => {
         const { count, pageSize, list } = r.data
         this.pageResult = { count, pageSize }
@@ -90,7 +90,7 @@ export default {
       this.getData()
     },
     resetData () {
-      this.pageParams.page = 1
+      this.pageParams.page = 0
       this.pageParams.pageSize = this.pageResult.pageSize
       this.getData()
     },
