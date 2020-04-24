@@ -6,15 +6,14 @@
         <h3 class="title">RESTFul CMS Koa Manage</h3>
       </div>
 
-      <el-form-item prop="username">
+      <el-form-item prop="account">
         <span class="svg-container">
           <svg-icon icon-class="user" />
         </span>
         <el-input
-          ref="username"
-          v-model="loginForm.username"
-          placeholder="Username"
-          name="username"
+          v-model="loginForm.account"
+          placeholder="请输入您的账号"
+          name="account"
           type="text"
           tabindex="1"
           auto-complete="on"
@@ -30,7 +29,7 @@
           ref="password"
           v-model="loginForm.password"
           :type="passwordType"
-          placeholder="Password"
+          placeholder="请输入您的密码"
           name="password"
           tabindex="2"
           auto-complete="on"
@@ -41,7 +40,19 @@
         </span>
       </el-form-item>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
+      <el-form-item prop="role">
+        <span class="svg-container">
+          <svg-icon icon-class="tree" />
+        </span>
+        <div class="role-group">
+          <el-radio-group v-model="loginForm.role">
+            <el-radio label="admin">超级管理员</el-radio>
+            <el-radio label="editor">编辑</el-radio>
+          </el-radio-group>
+        </div>
+      </el-form-item>
+
+      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">登录</el-button>
 
       <div class="tips">&copy; by FungLeo</div>
 
@@ -56,27 +67,21 @@ export default {
   name: 'Login',
   data () {
     const validateUsername = (rule, value, callback) => {
-      if (!validUsername(value)) {
-        callback(new Error('Please enter the correct user name'))
-      } else {
-        callback()
-      }
+      callback(!validUsername(value) ? new Error('请输入用户名') : '')
     }
     const validatePassword = (rule, value, callback) => {
-      if (value.length < 6) {
-        callback(new Error('The password can not be less than 6 digits'))
-      } else {
-        callback()
-      }
+      callback(value.length < 6 ? new Error('密码长度不能小于6位') : '')
     }
     return {
       loginForm: {
-        username: 'admin',
-        password: '111111'
+        account: 'admin',
+        password: '123456',
+        role: 'admin'
       },
       loginRules: {
-        username: [{ required: true, trigger: 'blur', validator: validateUsername }],
-        password: [{ required: true, trigger: 'blur', validator: validatePassword }]
+        account: [{ required: true, trigger: 'blur', validator: validateUsername }],
+        password: [{ required: true, trigger: 'blur', validator: validatePassword }],
+        role: [{ required: true, trigger: 'blur' }]
       },
       loading: false,
       passwordType: 'password',
@@ -191,16 +196,16 @@ $light_gray:#eee;
 
   .tips {
     font-size: 14px;
-    color: #fff;
+    color: #999;
     margin-bottom: 10px;
-
-    span {
-      &:first-of-type {
-        margin-right: 16px;
-      }
+    text-align: center;
+  }
+  .role-group {
+    display: inline-block;padding: 0 20px;
+    .el-radio {
+      color: #aaa;
     }
   }
-
   .svg-container {
     padding: 6px 5px 6px 15px;
     color: $dark_gray;
