@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: 'Vue Admin Template',
+  title: 'FESTFul CMS Koa Manage',
 
   /**
    * @type {boolean} true | false
