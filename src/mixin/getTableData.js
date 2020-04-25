@@ -1,3 +1,4 @@
+import dayjs from 'dayjs'
 import request from '@/utils/request'
 import { PageSize } from '@/config/index'
 import { calcNumberString } from '@/utils/tools'
@@ -123,9 +124,8 @@ export default {
       }
       return res || '配参异常'
     },
-    tableColMoney (row, col, val) {
-      val = calcNumberString(val)
-      return typeof val === 'number' ? `￥${val.toFixed(2)}元` : '入参错误'
+    tableColFormatDate (row, col, val) {
+      return dayjs(val).format('YYYY-MM-DD HH:mm:ss')
     }
   }
 }
