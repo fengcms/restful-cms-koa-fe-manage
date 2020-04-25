@@ -1,5 +1,5 @@
 <template>
-  <div class="page-main" v-loading="pageInfo.loading">
+  <div v-loading="pageInfo.loading" class="page-main">
     <el-form ref="ruleForm" :model="form" :rules="rules" label-width="80px">
       <el-form-item label="文章标题" prop="title">
         <el-input v-model="form.title" style="width: 500px" />
