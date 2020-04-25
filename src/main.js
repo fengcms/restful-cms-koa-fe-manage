@@ -17,7 +17,7 @@ import '@/permission' // permission control
 // 全局引入自定义组件
 import Comps from '@/comps'
 
-Vue.use(ElementUI)
+Vue.use(ElementUI, { size: 'medium' })
 Vue.use(Comps)
 
 Vue.config.productionTip = false

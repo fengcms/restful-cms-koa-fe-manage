@@ -17,14 +17,10 @@
         <el-input v-model="form.content" type="textarea" :rows="5" placeholder="请输入内容" />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" :loading="pageInfo.sumbiting" @click="submit">确 定</el-button>
+        <el-button type="primary" :loading="pageInfo.sumbiting" @click="submit">保存</el-button>
+        <el-button @click="resetForm">重置</el-button>
       </el-form-item>
     </el-form>
-    <!-- <div class="dialog-footer">
-      <el-button @click="close">取 消</el-button>
-      <el-button @click="resetForm">重 置</el-button>
-      <el-button type="primary" :loading="sumbiting" @click="submit">确 定</el-button>
-    </div> -->
   </div>
 </template>
 <script>

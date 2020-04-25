@@ -20,7 +20,6 @@ export default {
       Promise.all(beforePromise).then(() => {
         const { apiName, editId } = this.pageInfo
         if (editId) {
-          this.pageInfo.actionText = '编辑'
           request({
             url: apiName + '/' + editId,
             method: 'get'
@@ -32,8 +31,6 @@ export default {
               this.form = { ...r.data }
             }
           })
-        } else {
-          this.pageInfo.actionText = '添加'
         }
       }).finally(() => {
         this.pageInfo.loading = false
@@ -42,21 +39,34 @@ export default {
     submit () {
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
-          const { apiName, editId, itemName, actionText } = this.pageInfo
+          const { apiName, editId, itemName } = this.pageInfo
           const data = this.calcSubmitData(this.form)
           this.pageInfo.sumbiting = true
+          const method = editId ? 'put' : 'post'
+          const actionParams = {
+            put: {
+              api: `${apiName}/${editId}`, tip: '编辑'
+            },
+            post: {
+              api: `${apiName}`, tip: '添加'
+            }
+          }
           request({
-            url: `${apiName}${editId ? `/${editId}` : ''}`,
-            method: editId ? 'put' : 'post',
+            url: actionParams[method].api,
+            method,
             data
           }).then(r => {
             this.afterSubmit && this.afterSubmit(r)
-            this.$message({ message: `${itemName}${actionText}成功！`, type: 'success' })
+            this.$message({ message: `${itemName}${actionParams[method].tip}成功！`, type: 'success' })
+            this.getData()
           }).finally(() => {
             this.pageInfo.sumbiting = false
           })
         }
       })
+    },
+    resetForm () {
+      this.$refs.ruleForm && this.$refs.ruleForm.resetFields()
     }
   }
 }
