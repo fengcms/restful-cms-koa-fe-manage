@@ -57,11 +57,23 @@ export const constantRoutes = [
   {
     path: '/article',
     component: Layout,
-    children: [{
-      path: '',
-      component: () => import('@/views/article/list'),
-      meta: { title: '文章列表', icon: 'dashboard' }
-    }]
+    meta: { title: '文章管理', icon: 'dashboard' },
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/article/list'),
+        meta: { title: '文章列表' }
+      }, {
+        path: 'add',
+        component: () => import('@/views/article/edit'),
+        meta: { title: '添加文章' }
+      }, {
+        path: 'edit/:id',
+        component: () => import('@/views/article/edit'),
+        hidden: true,
+        meta: { title: '编辑文章' }
+      }
+    ]
   },
 
   // 404 page must be placed at the end !!!
