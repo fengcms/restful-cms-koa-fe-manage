@@ -1,5 +1,7 @@
 <template>
-  <router-view id="app" :name="$router.path" />
+  <div id="app">
+    <router-view :name="$router.path" />
+  </div>
 </template>
 
 <script>

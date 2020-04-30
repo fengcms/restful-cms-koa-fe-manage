@@ -1,5 +1,5 @@
 <template>
-  <div v-loading="pageInfo.loading" class="page-main">
+  <PageMain v-loading="pageInfo.loading">
     <el-form ref="ruleForm" :model="form" :rules="rules" label-width="80px">
       <el-form-item label="文章标题" prop="title">
         <el-input v-model="form.title" style="width: 500px" />
@@ -21,7 +21,7 @@
         <el-button @click="resetForm">重置</el-button>
       </el-form-item>
     </el-form>
-  </div>
+  </PageMain>
 </template>
 <script>
 import editPage from '@/mixin/editPage'

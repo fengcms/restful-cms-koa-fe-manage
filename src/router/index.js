@@ -75,6 +75,22 @@ export const constantRoutes = [
       }
     ]
   },
+  {
+    path: '/channel',
+    component: Layout,
+    meta: { title: '栏目管理', icon: 'dashboard' },
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/channel/list'),
+        meta: { title: '栏目列表' }
+      }, {
+        path: 'add',
+        component: () => import('@/views/channel/edit'),
+        meta: { title: '添加栏目' }
+      }
+    ]
+  },
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }

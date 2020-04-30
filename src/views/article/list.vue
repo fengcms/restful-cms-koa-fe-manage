@@ -1,5 +1,5 @@
 <template>
-  <div class="page-main">
+  <PageMain>
     <TableSearch :model="searchParams" :items="searchItems" @upSearchParams="upSearchParams" />
     <TableList
       :table-loading="tableLoading"
@@ -19,7 +19,7 @@
       </el-table-column>
       <!-- <el-table-column prop="content" label="操作内容" /> -->
     </TableList>
-  </div>
+  </PageMain>
 </template>
 <script>
 import getTableData from '@/mixin/getTableData'

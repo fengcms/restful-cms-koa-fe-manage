@@ -18,6 +18,7 @@ import RichEditor from './RichEditor/index.vue'
 import FlexBox from './FlexBox'
 import FlexItem from './FlexItem'
 import CardItem from './CardItem'
+import PageMain from './PageMain'
 
 const comps = [
   TableList,
@@ -39,7 +40,8 @@ const comps = [
   RichEditor,
   FlexBox,
   FlexItem,
-  CardItem
+  CardItem,
+  PageMain
 ]
 
 const install = function (Vue, opts = {}) {
@@ -69,5 +71,6 @@ export default {
   RichEditor,
   FlexBox,
   FlexItem,
-  CardItem
+  CardItem,
+  PageMain
 }
