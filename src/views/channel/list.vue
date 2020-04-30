@@ -22,14 +22,16 @@
           <OneLineText :text="scope.row.name" @click="getChannelByPid(scope.row)" />
         </template>
       </el-table-column>
+      <el-table-column prop="sort" align="center" label="排序" width="80" />
       <el-table-column prop="time" width="180" label="更新时间" :formatter="tableColFormatDate" />
-      <el-table-column fixed="right" label="操作" width="90">
+      <el-table-column fixed="right" label="操作" width="130">
         <template slot-scope="scope">
           <el-button type="text" size="small" @click="editItem(scope.row)">编辑</el-button>
+          <el-button type="text" size="small" @click="getChannelByPid(scope.row)">查看子栏目</el-button>
         </template>
       </el-table-column>
     </TableList>
-    <editBox :visible="editStatus.showEdit" :edit-dat="editStatus.editDat" @close="closeEditBox" />
+    <editBox :visible="editStatus.showEdit" :add-pid="searchParams.pid" :edit-dat="editStatus.editDat" @close="closeEditBox" />
   </PageMain>
 </template>
 <script>
