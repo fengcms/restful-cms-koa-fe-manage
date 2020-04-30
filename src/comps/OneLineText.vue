@@ -1,10 +1,16 @@
 <template>
   <el-tooltip effect="dark" :content="text" placement="top-start" :open-delay="200">
     <div :class="`one-line-text ${link || isClick ? 'one-line-text-link': ''}`" :style="`height: ${height};`" @click="handleClick">
-      <router-view v-if="link" :to="link">
-        <i v-if="icon" :class="icon" />
-        {{ text || '-' }}
-      </router-view>
+      <template v-if="link">
+        <a v-if="link.includes('http')" :href="link" target="_blank">
+          <i v-if="icon" :class="icon" />
+          {{ text || '-' }}
+        </a>
+        <router-view v-else :to="link">
+          <i v-if="icon" :class="icon" />
+          {{ text || '-' }}
+        </router-view>
+      </template>
       <template v-else>
         <i v-if="icon" :class="icon" />
         {{ text || '-' }}

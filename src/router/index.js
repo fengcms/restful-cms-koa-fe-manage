@@ -57,7 +57,7 @@ export const constantRoutes = [
   {
     path: '/article',
     component: Layout,
-    meta: { title: '文章管理', icon: 'dashboard' },
+    meta: { title: '文章管理', icon: 'article' },
     children: [
       {
         path: '',
@@ -78,16 +78,25 @@ export const constantRoutes = [
   {
     path: '/channel',
     component: Layout,
-    meta: { title: '栏目管理', icon: 'dashboard' },
+    meta: { title: '栏目管理', icon: 'tree' },
     children: [
       {
         path: '',
         component: () => import('@/views/channel/list'),
-        meta: { title: '栏目列表' }
-      }, {
-        path: 'add',
-        component: () => import('@/views/channel/edit'),
-        meta: { title: '添加栏目' }
+        meta: { title: '栏目管理' }
+      }
+    ]
+  },
+  {
+    path: '/base',
+    component: Layout,
+    meta: { title: '辅助管理', icon: 'base' },
+    alwaysShow: true,
+    children: [
+      {
+        path: 'author',
+        component: () => import('@/views/base/author/list'),
+        meta: { title: '作者管理' }
       }
     ]
   },
