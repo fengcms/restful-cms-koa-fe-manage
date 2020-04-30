@@ -2,7 +2,7 @@
   <PageMain>
     <ControlBox>
       <ControlBtn v-if="breadCrumb.length !== 1" icon="el-icon-arrow-left" @click="goBack">返回上级</ControlBtn>
-      <ControlBtn icon="el-icon-plus">添加栏目</ControlBtn>
+      <ControlBtn icon="el-icon-plus" @click="addItem">添加栏目</ControlBtn>
       <template slot="right">
         <el-breadcrumb separator-class="el-icon-arrow-right">
           <el-breadcrumb-item v-for="i in breadCrumb" :key="i.id">{{ i.name }}</el-breadcrumb-item>
@@ -25,16 +25,20 @@
       <el-table-column prop="time" width="180" label="更新时间" :formatter="tableColFormatDate" />
       <el-table-column fixed="right" label="操作" width="90">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="$router.push(`/article/edit/${scope.row.id}`)">编辑</el-button>
+          <el-button type="text" size="small" @click="editItem(scope.row)">编辑</el-button>
         </template>
       </el-table-column>
     </TableList>
+    <editBox :visible="editStatus.showEdit" :edit-dat="editStatus.editDat" @close="closeEditBox" />
   </PageMain>
 </template>
 <script>
 import getTableData from '@/mixin/getTableData'
+import listEdit from '@/mixin/listEdit'
+import editBox from './edit'
 export default {
-  mixins: [getTableData],
+  components: { editBox },
+  mixins: [getTableData, listEdit],
   data () {
     return {
       pageInfo: {
@@ -43,7 +47,8 @@ export default {
       },
       breadCrumb: [{ id: 0, name: '栏目导航' }],
       searchParams: {
-        pid: 0
+        pid: 0,
+        sort: '-sort,-id'
       },
       tableBase: {}
     }

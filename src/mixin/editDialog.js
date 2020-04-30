@@ -27,41 +27,40 @@ export default {
   },
   methods: {
     init () {
-      this.beforeInit && this.beforeInit()
-      if (this.editId || this.editDat) {
-        this.actionText = '编辑'
-        this.isEdit = true
-        this.loading.detail = true
-        this.beforeGetData && this.beforeGetData()
-        const calcResponse = (resp, asyn) => {
-          if (this.afterGetData) {
-            const afterGetData = this.afterGetData(resp)
-            if (afterGetData) this.form = { ...afterGetData }
-          } else {
-            this.form = asyn ? { ...resp.data } : { ...resp }
+      const beforeInit = this.beforeInit && this.beforeInit()
+      Promise.all(beforeInit || []).then(() => {
+        if (this.editId || this.editDat) {
+          this.actionText = '编辑'
+          this.isEdit = true
+          this.loading.detail = true
+          this.beforeGetData && this.beforeGetData()
+          const calcResponse = (resp, asyn) => {
+            if (this.afterGetData) {
+              const afterGetData = this.afterGetData(resp)
+              if (afterGetData) this.form = { ...afterGetData }
+            } else {
+              this.form = asyn ? { ...resp.data } : { ...resp }
+            }
           }
+          if (this.editId) {
+            // 构建请求详情数据数据
+            const { apiName } = this.pageInfo
+            request({
+              url: `${apiName}/${this.editId}`,
+              method: 'get'
+            }).then(r => {
+              calcResponse(r, true)
+            }).finally(() => {
+              this.loading.detail = false
+            })
+          }
+          if (this.editDat) calcResponse(this.editDat)
+        } else {
+          this.actionText = '添加'
+          this.isEdit = false
+          this.addInit && this.addInit()
         }
-        if (this.editId) {
-          // 构建请求详情数据数据
-          const data = {}
-          const { idName, getDetailApiName } = this.pageInfo
-          data[idName] = this.editId
-          request({
-            url: getDetailApiName,
-            method: 'post',
-            data
-          }).then(r => {
-            calcResponse(r, true)
-          }).finally(() => {
-            this.loading.detail = false
-          })
-        }
-        if (this.editDat) calcResponse(this.editDat)
-      } else {
-        this.actionText = '添加'
-        this.isEdit = false
-        this.addInit && this.addInit()
-      }
+      })
     },
     close () {
       this.beforeClose && this.beforeClose()
@@ -80,11 +79,11 @@ export default {
             const beforeSubmit = this.beforeSubmit(data)
             if (beforeSubmit != null) return
           }
-          const { addApiName, editApiName } = this.pageInfo
-          console.log((this.editId || this.editDat) ? editApiName : addApiName)
+          const { apiName } = this.pageInfo
+          const isEdit = this.editId || this.editDat
           request({
-            url: (this.editId || this.editDat) ? editApiName : addApiName,
-            method: 'post',
+            url: isEdit ? `${apiName}/${this.editId || this.editDat.id}` : apiName,
+            method: isEdit ? 'put' : 'post',
             data
           }).then(r => {
             // 如果有后执行函数，则执行该函数
@@ -93,7 +92,12 @@ export default {
             this.$message({ message: `${this.actionText}成功！`, type: 'success' })
             this.close()
             // 尝试调用父组件的更新数据方法
-            this.$parent.resetData ? this.$parent.resetData() : (this.$parent.getData && this.$parent.getData())
+            const parent = this.$parent.resetData
+              ? this.$parent
+              : this.$parent.$parent.resetData
+                ? this.$parent.$parent
+                : { resetData () {} }
+            parent.resetData()
           }).finally(() => {
             this.sumbiting = false
           })

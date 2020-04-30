@@ -20,7 +20,6 @@ export default {
       }
     },
     editItem (o) {
-      this.editStatus.showEdit = true
       if (toType(o) === 'object') {
         if (Object.keys(o).includes('$index')) {
           this.editStatus.editDat = o.row
@@ -31,6 +30,10 @@ export default {
       } else {
         this.editStatus.editId = o
       }
+      setTimeout(() => {
+        console.log(this.editStatus)
+        this.editStatus.showEdit = true
+      }, 500)
     },
     closeEditBox () {
       this.editStatus = {
