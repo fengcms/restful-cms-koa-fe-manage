@@ -15,7 +15,7 @@
       <el-table-column prop="name" label="来源名称" min-width="100" />
       <el-table-column label="LOGO" align="center" width="100">
         <template slot-scope="scope">
-          <TableImage :src="scope.row.logo"></TableImage>
+          <TableImage :src="scope.row.logo" />
         </template>
       </el-table-column>
       <el-table-column prop="contact" label="联系人" width="130" />

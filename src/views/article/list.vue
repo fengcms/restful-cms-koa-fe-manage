@@ -20,7 +20,7 @@
       <el-table-column prop="channel_id" label="归属栏目" width="180" :formatter="tableColFormat" />
       <el-table-column label="封面图片" align="center" width="100">
         <template slot-scope="scope">
-          <TableImage :src="scope.row.img"></TableImage>
+          <TableImage :src="scope.row.img" />
         </template>
       </el-table-column>
       <el-table-column prop="time" width="180" label="更新时间" :formatter="tableColFormatDate" />

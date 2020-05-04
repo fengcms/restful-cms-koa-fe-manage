@@ -15,7 +15,7 @@
       <el-table-column prop="name" label="作者姓名" />
       <el-table-column label="作者头像" align="center" width="100">
         <template slot-scope="scope">
-          <TableImage :src="scope.row.avatar"></TableImage>
+          <TableImage :src="scope.row.avatar" />
         </template>
       </el-table-column>
       <el-table-column prop="mobile" label="手机" width="130" />
