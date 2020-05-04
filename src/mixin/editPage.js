@@ -58,7 +58,7 @@ export default {
           }).then(r => {
             this.afterSubmit && this.afterSubmit(r)
             this.$message({ message: `${itemName}${actionParams[method].tip}成功！`, type: 'success' })
-            this.getData()
+            editId ? this.getData() : this.$router.back()
           }).finally(() => {
             this.pageInfo.sumbiting = false
           })

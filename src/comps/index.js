@@ -19,6 +19,7 @@ import FlexBox from './FlexBox'
 import FlexItem from './FlexItem'
 import CardItem from './CardItem'
 import PageMain from './PageMain'
+import TableImage from './TableImage'
 
 const comps = [
   TableList,
@@ -41,7 +42,8 @@ const comps = [
   FlexBox,
   FlexItem,
   CardItem,
-  PageMain
+  PageMain,
+  TableImage
 ]
 
 const install = function (Vue, opts = {}) {
@@ -72,5 +74,6 @@ export default {
   FlexBox,
   FlexItem,
   CardItem,
-  PageMain
+  PageMain,
+  TableImage
 }

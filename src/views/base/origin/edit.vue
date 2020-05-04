@@ -5,7 +5,7 @@
         <el-form-item label="来源名称" prop="name">
           <el-input v-model="form.name" style="width: 200px" />
         </el-form-item>
-        <el-form-item label="来源LOGO" prop="logo">
+        <el-form-item label="LOGO" prop="logo">
           <UpImg v-model="form.logo" :limit="1" />
         </el-form-item>
         <el-form-item label="联系人" prop="contact">

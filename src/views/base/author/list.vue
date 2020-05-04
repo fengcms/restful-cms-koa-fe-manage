@@ -13,6 +13,11 @@
     >
       <el-table-column prop="id" align="center" label="ID" width="50" />
       <el-table-column prop="name" label="作者姓名" />
+      <el-table-column label="作者头像" align="center" width="100">
+        <template slot-scope="scope">
+          <TableImage :src="scope.row.avatar"></TableImage>
+        </template>
+      </el-table-column>
       <el-table-column prop="mobile" label="手机" width="130" />
       <el-table-column prop="email" label="邮箱" width="240" />
       <el-table-column label="主页" width="280">

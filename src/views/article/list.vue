@@ -1,5 +1,8 @@
 <template>
   <PageMain>
+    <ControlBox>
+      <ControlBtn icon="el-icon-plus" @click="$router.push('/article/add')">添加文章</ControlBtn>
+    </ControlBox>
     <TableSearch :model="searchParams" :items="searchItems" @upSearchParams="upSearchParams" />
     <TableList
       :table-loading="tableLoading"
@@ -8,16 +11,24 @@
       :page-curr-change="pageCurrChange"
       :selection-change="selectionChange"
     >
-      <el-table-column prop="id" label="ID" width="50" />
-      <el-table-column prop="title" label="文章标题" />
+      <el-table-column prop="id" align="center" label="ID" width="50" />
+      <el-table-column min-width="300" label="文章标题">
+        <template slot-scope="scope">
+          <OneLineText :text="scope.row.title" />
+        </template>
+      </el-table-column>
       <el-table-column prop="channel_id" label="归属栏目" width="180" :formatter="tableColFormat" />
+      <el-table-column label="封面图片" align="center" width="100">
+        <template slot-scope="scope">
+          <TableImage :src="scope.row.img"></TableImage>
+        </template>
+      </el-table-column>
       <el-table-column prop="time" width="180" label="更新时间" :formatter="tableColFormatDate" />
       <el-table-column fixed="right" label="操作" width="90">
         <template slot-scope="scope">
           <el-button type="text" size="small" @click="$router.push(`/article/edit/${scope.row.id}`)">编辑</el-button>
         </template>
       </el-table-column>
-      <!-- <el-table-column prop="content" label="操作内容" /> -->
     </TableList>
   </PageMain>
 </template>

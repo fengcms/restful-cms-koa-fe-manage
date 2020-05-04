@@ -12,7 +12,12 @@
       :selection-change="selectionChange"
     >
       <el-table-column prop="id" align="center" label="ID" width="50" />
-      <el-table-column prop="name" label="来源名称" />
+      <el-table-column prop="name" label="来源名称" min-width="100" />
+      <el-table-column label="LOGO" align="center" width="100">
+        <template slot-scope="scope">
+          <TableImage :src="scope.row.logo"></TableImage>
+        </template>
+      </el-table-column>
       <el-table-column prop="contact" label="联系人" width="130" />
       <el-table-column prop="mobile" label="手机" width="130" />
       <el-table-column prop="email" label="邮箱" width="240" />

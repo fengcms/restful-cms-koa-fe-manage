@@ -22,7 +22,7 @@
 export default {
   name: 'OneLineText',
   props: {
-    height: { type: String, default: '18px' },
+    height: { type: String, default: 'auto' },
     text: { type: String, default: '' },
     icon: { type: String, default: '' },
     link: { type: String, default: '' }
@@ -44,10 +44,10 @@ export default {
 </script>
 <style lang="scss" scoped>
 .one-line-text {
-  display: inline-block;
+  display: block;
   overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 
   &.one-line-text-link {
     cursor: pointer;color: #409EFF;
