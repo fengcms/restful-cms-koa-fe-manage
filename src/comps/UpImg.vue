@@ -82,7 +82,7 @@ export default {
     .el-upload { display: none; }
   }
   .el-upload-list--picture-card, .el-upload-list__item {
-    transition: none
+    transition: none; vertical-align: top;
   }
 }
 </style>
