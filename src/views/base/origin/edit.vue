@@ -2,8 +2,11 @@
   <el-dialog :title="`${actionText}来源`" :visible="visible" width="620px" :close-on-click-modal="false" :close-on-press-escape="false" @open="init" @close="close">
     <template v-if="visible">
       <el-form ref="ruleForm" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="名称" prop="name">
+        <el-form-item label="来源名称" prop="name">
           <el-input v-model="form.name" style="width: 200px" />
+        </el-form-item>
+        <el-form-item label="来源LOGO" prop="logo">
+          <UpImg v-model="form.logo" :limit="1" />
         </el-form-item>
         <el-form-item label="联系人" prop="contact">
           <el-input v-model="form.contact" style="width: 200px" />

@@ -5,6 +5,9 @@
         <el-form-item label="作者姓名" prop="name">
           <el-input v-model="form.name" style="width: 200px" />
         </el-form-item>
+        <el-form-item label="作者头像" prop="avatar">
+          <UpImg v-model="form.avatar" :limit="1" />
+        </el-form-item>
         <el-form-item label="作者手机" prop="mobile">
           <el-input v-model="form.mobile" :maxlength="11" style="width: 200px" />
         </el-form-item>

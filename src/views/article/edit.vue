@@ -13,6 +13,9 @@
           style="width: 400px"
         />
       </el-form-item>
+      <el-form-item label="封面图片" prop="img">
+        <UpImg v-model="form.img" :limit="1" />
+      </el-form-item>
       <el-form-item label="文章内容" prop="content">
         <el-input v-model="form.content" type="textarea" :rows="5" placeholder="请输入内容" />
       </el-form-item>
