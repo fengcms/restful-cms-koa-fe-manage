@@ -40,7 +40,7 @@ export default {
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
           const { apiName, editId, itemName } = this.pageInfo
-          const data = this.calcSubmitData(this.form)
+          const data = this.calcSubmitData ? this.calcSubmitData(this.form) : { ...this.form }
           this.pageInfo.sumbiting = true
           const method = editId ? 'put' : 'post'
           const actionParams = {

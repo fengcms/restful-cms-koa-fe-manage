@@ -78,6 +78,7 @@ export default {
 </script>
 <style lang="scss">
 .niao-upload {
+  display: inline-block;vertical-align: bottom;
   &.niao-upload-hide-add {
     .el-upload { display: none; }
   }

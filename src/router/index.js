@@ -115,6 +115,19 @@ export const constantRoutes = [
       }
     ]
   },
+  {
+    path: '/system',
+    component: Layout,
+    meta: { title: '系统管理', icon: 'base' },
+    alwaysShow: true,
+    children: [
+      {
+        path: 'site',
+        component: () => import('@/views/system/site'),
+        meta: { title: '基本信息配置' }
+      }
+    ]
+  },
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
