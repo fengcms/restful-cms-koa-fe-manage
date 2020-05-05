@@ -54,7 +54,7 @@ export default {
               this.loading.detail = false
             })
           }
-          if (this.editDat) calcResponse(this.editDat)
+          if (this.editDat) calcResponse({ ...this.editDat })
         } else {
           this.actionText = '添加'
           this.isEdit = false
