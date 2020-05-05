@@ -125,6 +125,11 @@ export const constantRoutes = [
         path: 'site',
         component: () => import('@/views/system/site'),
         meta: { title: '基本信息配置' }
+      },
+      {
+        path: 'manages',
+        component: () => import('@/views/system/manages/list'),
+        meta: { title: '超级管理员管理' }
       }
     ]
   },
