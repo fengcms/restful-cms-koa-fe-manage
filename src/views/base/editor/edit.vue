@@ -4,8 +4,11 @@
       <el-form ref="ruleForm" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="账号" prop="account">
           <el-input v-model="form.account" style="width: 200px" />
+          <el-button v-if="isEdit" type="success" @click="changePassword = !changePassword">
+            {{ changePassword ? '关闭密码修改' : '修改小编密码' }}
+          </el-button>
         </el-form-item>
-        <el-form-item v-if="!isEdit" label="密码" prop="password">
+        <el-form-item v-if="!isEdit || changePassword" label="密码" prop="password">
           <el-input v-model="form.password" style="width: 200px" />
         </el-form-item>
         <el-form-item label="姓名" prop="name">
@@ -46,6 +49,7 @@ export default {
       pageInfo: {
         apiName: 'editor'
       },
+      changePassword: false,
       form: {
         account: '',
         password: '',
@@ -90,11 +94,14 @@ export default {
       }
     },
     calcSubmitData (data) {
-      if (!this.isEdit) {
+      if (data.password) {
         const { rsaKey } = this.user
         data.password = rsaEn(data.password, rsaKey)
       }
       return data
+    },
+    beforeClose () {
+      this.changePassword = false
     }
   }
 }
