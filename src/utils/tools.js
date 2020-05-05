@@ -1,3 +1,5 @@
+import JSEncrypt from 'jsencrypt'
+
 // 精确校验数据格式方法
 export const toType = obj => {
   return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
@@ -127,6 +129,15 @@ export const url2Obj = (url = '') => {
   })
   return filterNull(obj)
 }
+export const rsaEn = (str, key) => {
+  try {
+    const JSE = new JSEncrypt()
+    JSE.setPublicKey(key)
+    return JSE.encrypt(str)
+  } catch (e) {
+    return new Error(e)
+  }
+}
 export default {
   toType,
   filterNull,
@@ -135,5 +146,6 @@ export default {
   calcNumberString,
   HTMLDecode,
   obj2Url,
-  url2Obj
+  url2Obj,
+  rsaEn
 }

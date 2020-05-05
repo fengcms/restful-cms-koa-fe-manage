@@ -1,7 +1,7 @@
-import JSEncrypt from 'jsencrypt'
 import { getRsaKey, login, logout, getInfo } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
+import { rsaEn } from '@/utils/tools'
 
 const getDefaultState = () => {
   return {
@@ -46,9 +46,7 @@ const actions = {
         const key = r.data
         commit('SET_RSA_KEY', key)
         // 使用 rsa 公钥加密密码
-        const JSE = new JSEncrypt()
-        JSE.setPublicKey(key)
-        const enPw = JSE.encrypt(password)
+        const enPw = rsaEn(password, key)
         // 提交登录接口
         login({ account: account.trim(), password: enPw, role }).then(response => {
           const { data } = response

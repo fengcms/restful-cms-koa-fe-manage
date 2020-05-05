@@ -65,6 +65,9 @@ export default {
     close () {
       this.beforeClose && this.beforeClose()
       this.resetForm()
+      // resetForm 不能清除隐藏字段，因此这俩隐藏字段手动删除
+      delete this.form.id
+      delete this.form.time
       this.$emit('close')
     },
     submit () {
@@ -72,24 +75,23 @@ export default {
         if (valid) {
           if (this.sumbiting) return
           this.sumbiting = true
-          // 深拷贝提交数据
-          const data = this.calcSubmitData ? this.calcSubmitData({ ...this.form }) : { ...this.form }
           // 如果有提交前执行方法，并且返回了数据，则要执行
           if (this.beforeSubmit) {
             const beforeSubmit = this.beforeSubmit(data)
             if (beforeSubmit != null) return
           }
+          // 深拷贝提交数据
+          const data = this.calcSubmitData ? this.calcSubmitData({ ...this.form }) : { ...this.form }
           const { apiName } = this.pageInfo
-          const isEdit = this.editId || this.editDat
           request({
-            url: isEdit ? `${apiName}/${this.editId || this.editDat.id}` : apiName,
-            method: isEdit ? 'put' : 'post',
+            url: this.isEdit ? `${apiName}/${this.editId || this.editDat.id}` : apiName,
+            method: this.isEdit ? 'put' : 'post',
             data
           }).then(r => {
             // 如果有后执行函数，则执行该函数
             this.afterSubmit && this.afterSubmit(r)
             // 其他方法
-            this.$message({ message: `${this.actionText}成功！`, type: 'success' })
+            this.$message.success(`${this.actionText}成功！`)
             this.close()
             // 尝试调用父组件的更新数据方法
             const parent = this.$parent.resetData

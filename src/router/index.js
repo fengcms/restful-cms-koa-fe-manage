@@ -102,6 +102,11 @@ export const constantRoutes = [
         path: 'origin',
         component: () => import('@/views/base/origin/list'),
         meta: { title: '来源管理' }
+      },
+      {
+        path: 'editor',
+        component: () => import('@/views/base/editor/list'),
+        meta: { title: '编辑管理' }
       }
     ]
   },
