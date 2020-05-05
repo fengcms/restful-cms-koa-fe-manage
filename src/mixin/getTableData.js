@@ -83,7 +83,7 @@ export default {
       return searchParams
     },
     pageCurrChange (e) {
-      this.pageParams.page = e
+      this.pageParams.page = e - 1
       this.getData()
     },
     pageSizeChange (e) {

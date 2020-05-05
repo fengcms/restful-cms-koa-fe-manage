@@ -2,6 +2,7 @@
   <PageMain>
     <ControlBox>
       <ControlBtn icon="el-icon-plus" @click="$router.push('/article/add')">添加文章</ControlBtn>
+      <ControlBtn icon="el-icon-delete" type="danger" @click="batchDelRowItem">批量删除</ControlBtn>
     </ControlBox>
     <TableSearch :model="searchParams" :items="searchItems" @upSearchParams="upSearchParams" />
     <TableList
@@ -11,6 +12,7 @@
       :page-curr-change="pageCurrChange"
       :selection-change="selectionChange"
     >
+      <el-table-column type="selection" align="center" width="45" />
       <el-table-column prop="id" align="center" label="ID" width="50" />
       <el-table-column min-width="300" label="文章标题">
         <template slot-scope="scope">
@@ -24,9 +26,10 @@
         </template>
       </el-table-column>
       <el-table-column prop="time" width="180" label="更新时间" :formatter="tableColFormatDate" />
-      <el-table-column fixed="right" label="操作" width="90">
+      <el-table-column fixed="right" label="操作" align="center" width="90">
         <template slot-scope="scope">
           <el-button type="text" size="small" @click="$router.push(`/article/edit/${scope.row.id}`)">编辑</el-button>
+          <el-button type="text" size="small" @click="delRowItem(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>
     </TableList>
@@ -34,14 +37,16 @@
 </template>
 <script>
 import getTableData from '@/mixin/getTableData'
+import listEdit from '@/mixin/listEdit'
 import { getChannel } from '@/api/channel'
 export default {
-  mixins: [getTableData],
+  mixins: [getTableData, listEdit],
   data () {
     return {
       pageInfo: {
         dontGetData: true,
-        listApiName: 'article'
+        listApiName: 'article',
+        itemName: '文章'
       },
       searchParams: {
         'title-like': '',
