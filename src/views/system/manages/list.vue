@@ -53,7 +53,7 @@ export default {
         mobile: ''
       },
       searchItems: [
-        { label: '小编姓名', field: 'name-like', width: '100px' },
+        { label: '姓名', field: 'name-like', width: '100px' },
         { label: '账号', field: 'account', width: '100px' },
         { label: '手机', field: 'mobile', width: '100px' }
       ],
