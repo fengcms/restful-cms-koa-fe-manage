@@ -61,17 +61,9 @@
 </template>
 
 <script>
-import { validUsername } from '@/utils/validate'
-
 export default {
   name: 'Login',
   data () {
-    const validateUsername = (rule, value, callback) => {
-      callback(!validUsername(value) ? new Error('请输入用户名') : '')
-    }
-    const validatePassword = (rule, value, callback) => {
-      callback(value.length < 6 ? new Error('密码长度不能小于6位') : '')
-    }
     return {
       loginForm: {
         account: 'admin',
@@ -79,8 +71,8 @@ export default {
         role: 'admin'
       },
       loginRules: {
-        account: [{ required: true, trigger: 'blur', validator: validateUsername }],
-        password: [{ required: true, trigger: 'blur', validator: validatePassword }],
+        account: [{ required: true, message: '请输入登录账号', trigger: 'blur' }],
+        password: [{ required: true, message: '请输入登录密码', trigger: 'blur' }],
         role: [{ required: true, trigger: 'blur' }]
       },
       loading: false,
@@ -108,6 +100,7 @@ export default {
       })
     },
     handleLogin () {
+      console.log(this.loginForm)
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
