@@ -13,6 +13,8 @@
  * https://panjiachen.github.io/vue-element-admin-site/feature/component/rich-editor.html#tinymce
  */
 import editorImage from './components/EditorImage'
+import plugins from './plugins'
+import toolbar from './toolbar'
 import load from './dynamicLoadScript'
 import { Settings } from '@/config'
 // why use this cdn, detail see https://github.com/PanJiaChen/tinymce-all-in-one
@@ -124,9 +126,9 @@ export default {
         autoresize_bottom_margin: 50,
         body_class: 'panel-body ',
         object_resizing: false,
-        toolbar: ['code undo redo removeformat image fullscreen'],
-        menubar: '',
-        plugins: ['code autoresize image fullscreen'],
+        toolbar: this.toolbar.length > 0 ? this.toolbar : toolbar,
+        menubar: this.menubar,
+        plugins: plugins,
         end_container_on_empty_block: true,
         powerpaste_word_import: 'clean',
         code_dialog_height: 450,

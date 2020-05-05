@@ -13,7 +13,6 @@
         :before-upload="beforeUpload"
         class="editor-slide-upload"
         :action="api"
-        name="file"
         list-type="picture-card"
       >
         <el-button size="small" type="primary">
@@ -33,7 +32,6 @@
 <script>
 // import { getToken } from 'api/qiniu'
 import { ApiPre } from '@/config'
-import { getImgUrl } from '@/utils/tools'
 export default {
   name: 'EditorSlideUpload',
   props: {
@@ -70,7 +68,7 @@ export default {
       const objKeyArr = Object.keys(this.listObj)
       for (let i = 0, len = objKeyArr.length; i < len; i++) {
         if (this.listObj[objKeyArr[i]].uid === uid) {
-          this.listObj[objKeyArr[i]].url = getImgUrl(response.data.goodsImg)
+          this.listObj[objKeyArr[i]].url = response.data.path
           this.listObj[objKeyArr[i]].hasSuccess = true
           return
         }

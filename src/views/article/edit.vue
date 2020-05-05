@@ -16,8 +16,11 @@
       <el-form-item label="封面图片" prop="img">
         <UpImg v-model="form.img" :limit="1" />
       </el-form-item>
+      <el-form-item label="文章概要" prop="description">
+        <el-input v-model="form.description" type="textarea" :rows="3" placeholder="请输入文章概要" style="width: 500px" />
+      </el-form-item>
       <el-form-item label="文章内容" prop="content">
-        <el-input v-model="form.content" type="textarea" :rows="5" placeholder="请输入内容" />
+        <RichEditor v-model="form.content" placeholder="请输入内容" />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" :loading="pageInfo.sumbiting" @click="submit">保存</el-button>
