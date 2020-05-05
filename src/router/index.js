@@ -106,7 +106,7 @@ export const constantRoutes = [
       {
         path: 'editor',
         component: () => import('@/views/base/editor/list'),
-        meta: { title: '编辑管理' }
+        meta: { title: '小编管理' }
       }
     ]
   },

@@ -1,7 +1,7 @@
 <template>
   <PageMain>
     <ControlBox>
-      <ControlBtn icon="el-icon-plus" @click="addItem">添加编辑</ControlBtn>
+      <ControlBtn icon="el-icon-plus" @click="addItem">添加{{pageInfo.itemName}}</ControlBtn>
       <ControlBtn icon="el-icon-delete" type="danger" @click="batchDelRowItem">批量删除</ControlBtn>
     </ControlBox>
     <TableSearch :model="searchParams" :items="searchItems" @upSearchParams="upSearchParams" />
@@ -14,7 +14,7 @@
     >
       <el-table-column type="selection" align="center" width="45" />
       <el-table-column prop="id" align="center" label="ID" width="50" />
-      <el-table-column prop="name" label="编辑姓名" min-width="140" />
+      <el-table-column prop="name" label="小编姓名" min-width="140" />
       <el-table-column label="头像" align="center" width="100">
         <template slot-scope="scope">
           <TableImage :src="scope.row.avatar" />
@@ -50,16 +50,16 @@ export default {
     return {
       pageInfo: {
         listApiName: 'editor',
-        itemName: '编辑'
+        itemName: '小编'
       },
       searchParams: {
         'name-like': '',
-        'contact-like': '',
+        account: '',
         mobile: ''
       },
       searchItems: [
-        { label: '编辑姓名', field: 'name-like', width: '100px' },
-        { label: '联系人', field: 'contact-like', width: '100px' },
+        { label: '小编姓名', field: 'name-like', width: '100px' },
+        { label: '账号', field: 'account', width: '100px' },
         { label: '手机', field: 'mobile', width: '100px' }
       ],
       tableBase: {}

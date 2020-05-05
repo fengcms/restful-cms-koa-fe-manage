@@ -1,7 +1,7 @@
 <template>
   <PageMain>
     <ControlBox>
-      <ControlBtn icon="el-icon-plus" @click="addItem">添加作者</ControlBtn>
+      <ControlBtn icon="el-icon-plus" @click="addItem">添加{{pageInfo.itemName}}</ControlBtn>
       <ControlBtn icon="el-icon-delete" type="danger" @click="batchDelRowItem">批量删除</ControlBtn>
     </ControlBox>
     <TableSearch :model="searchParams" :items="searchItems" @upSearchParams="upSearchParams" />
