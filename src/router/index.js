@@ -130,6 +130,11 @@ export const constantRoutes = [
         path: 'manages',
         component: () => import('@/views/system/manages/list'),
         meta: { title: '超级管理员管理' }
+      },
+      {
+        path: '/changePassword',
+        component: () => import('@/views/system/changePassword'),
+        hidden: true
       }
     ]
   },
