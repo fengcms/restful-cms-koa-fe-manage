@@ -29,10 +29,10 @@
       <el-form-item label="文章概要" prop="description">
         <el-input v-model="form.description" type="textarea" :rows="3" placeholder="请输入文章概要" style="width: 500px" />
       </el-form-item>
-      <!-- <el-form-item label="文章内容" prop="content">
+      <el-form-item v-if="calcEditorType() !== 'MARKDOWN'" label="文章内容" prop="content">
         <RichEditor v-model="form.content" placeholder="请输入内容" />
-      </el-form-item> -->
-      <el-form-item label="文章内容" prop="markdown">
+      </el-form-item>
+      <el-form-item v-else label="文章内容" prop="markdown">
         <MarkEditor v-model="form.markdown" />
       </el-form-item>
       <el-form-item label="编辑" prop="editor">
@@ -47,6 +47,7 @@
 </template>
 <script>
 import editPage from '@/mixin/editPage'
+import { mapState } from 'vuex'
 import { getTreeChannel, getChannel } from '@/api/channel'
 export default {
   mixins: [editPage],
@@ -59,6 +60,7 @@ export default {
       form: {
         title: '',
         content: '',
+        markdown: '',
         channel: []
       },
       rules: {
@@ -78,8 +80,16 @@ export default {
       }
     }
   },
+  computed: { ...mapState(['user']) },
   created () {},
   methods: {
+    calcEditorType () {
+      const defaultEditor = this.user.editor
+      const { content, markdown } = this.form
+      if (!content && !markdown) return defaultEditor
+      if (content && !markdown) return 'RICHEDITOR'
+      return 'MARKDOWN'
+    },
     beforeGetData () {
       const tree = getTreeChannel().then(r => { this.base.treeChannel = r.data })
       const chan = getChannel().then(r => { this.base.channel = r.data.list })
