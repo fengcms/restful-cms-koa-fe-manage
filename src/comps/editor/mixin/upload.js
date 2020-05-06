@@ -1,3 +1,4 @@
+import { ApiPre } from '@/config'
 export default {
   data () {
     return {
@@ -10,7 +11,7 @@ export default {
         const formData = new FormData()
         formData.set('file', file)
         const xhr = new XMLHttpRequest()
-        xhr.open('post', '/api/v1/upload')
+        xhr.open('post', ApiPre + 'upload')
         xhr.onload = () => {
           if (xhr.status === 200) {
             const res = JSON.parse(xhr.response || xhr.responseText)

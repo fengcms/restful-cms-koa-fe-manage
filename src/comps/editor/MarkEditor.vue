@@ -39,6 +39,7 @@ export default {
     ready (el) {
       editor.vm = el.vm
       editor.insert = el.insertContent
+      this.content = this.value
     },
     upImg (file) {
       this.upload(file).then(({ name, path }) => {
