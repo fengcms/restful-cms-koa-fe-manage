@@ -20,6 +20,7 @@ import FlexItem from './FlexItem'
 import CardItem from './CardItem'
 import PageMain from './PageMain'
 import TableImage from './TableImage'
+import MarkEditor from './MarkEditor'
 
 const comps = [
   TableList,
@@ -43,7 +44,8 @@ const comps = [
   FlexItem,
   CardItem,
   PageMain,
-  TableImage
+  TableImage,
+  MarkEditor
 ]
 
 const install = function (Vue, opts = {}) {
@@ -75,5 +77,6 @@ export default {
   FlexItem,
   CardItem,
   PageMain,
-  TableImage
+  TableImage,
+  MarkEditor
 }

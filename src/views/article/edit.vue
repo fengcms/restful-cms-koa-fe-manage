@@ -29,8 +29,11 @@
       <el-form-item label="文章概要" prop="description">
         <el-input v-model="form.description" type="textarea" :rows="3" placeholder="请输入文章概要" style="width: 500px" />
       </el-form-item>
-      <el-form-item label="文章内容" prop="content">
+      <!-- <el-form-item label="文章内容" prop="content">
         <RichEditor v-model="form.content" placeholder="请输入内容" />
+      </el-form-item> -->
+      <el-form-item label="文章内容" prop="markdown">
+        <MarkEditor v-model="form.markdown" />
       </el-form-item>
       <el-form-item label="编辑" prop="editor">
         <el-input v-model="form.editor" style="width: 200px" />
