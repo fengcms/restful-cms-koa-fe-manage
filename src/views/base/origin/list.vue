@@ -22,8 +22,12 @@
       </el-table-column>
       <el-table-column prop="contact" label="联系人" width="130" />
       <el-table-column prop="mobile" label="手机" width="130" />
-      <el-table-column prop="email" label="邮箱" width="240" />
-      <el-table-column label="主页" width="280">
+      <el-table-column prop="email" label="邮箱" width="180">
+        <template slot-scope="scope">
+          <OneLineText :link="`${scope.row.email}`" mail :text="scope.row.email" />
+        </template>
+      </el-table-column>
+      <el-table-column label="主页" width="180">
         <template slot-scope="scope">
           <OneLineText :link="scope.row.website" :text="scope.row.website" />
         </template>

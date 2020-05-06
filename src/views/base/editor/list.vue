@@ -21,9 +21,14 @@
         </template>
       </el-table-column>
       <el-table-column prop="account" label="账号" width="150" />
+      <el-table-column prop="editor" width="150" label="常用编辑器" :formatter="tableColFormat" />
       <el-table-column prop="mobile" label="手机" width="130" />
-      <el-table-column prop="email" label="邮箱" width="240" />
-      <el-table-column label="主页" width="280">
+      <el-table-column prop="email" label="邮箱" width="180">
+        <template slot-scope="scope">
+          <OneLineText :link="`${scope.row.email}`" mail :text="scope.row.email" />
+        </template>
+      </el-table-column>
+      <el-table-column label="主页" width="180">
         <template slot-scope="scope">
           <OneLineText :link="scope.row.website" :text="scope.row.website" />
         </template>
@@ -62,7 +67,11 @@ export default {
         { label: '账号', field: 'account', width: '100px' },
         { label: '手机', field: 'mobile', width: '100px' }
       ],
-      tableBase: {}
+      tableBase: {
+        editor: {
+          MARKDOWN: 'MarkDown 编辑器', RICHEDITOR: '富文本编辑器'
+        }
+      }
     }
   },
   methods: {

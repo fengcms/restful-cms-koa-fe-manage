@@ -1,15 +1,23 @@
 <template>
-  <el-tooltip effect="dark" :content="text" placement="top-start" :open-delay="200">
-    <div :class="`one-line-text ${link || isClick ? 'one-line-text-link': ''}`" :style="`height: ${height};`" @click="handleClick">
-      <template v-if="link">
-        <a v-if="link.includes('http')" :href="link" target="_blank">
+  <el-tooltip effect="dark" :content="text" placement="top-start" :open-delay="200" :enterable="false" :disabled="!text">
+    <div
+      :class="`one-line-text ${(link && link !== 'null') || isClick ? 'one-line-text-link': ''}`"
+      :style="`height: ${height};`"
+      @click="handleClick">
+
+      <template v-if="link && link !== 'null'">
+        <a
+          v-if="mail || isWebUrl(link)"
+          :href="`${mail ? 'mailto:' : ''}${link}`"
+          :target="`${link.includes('mailto') ? '' : '_blank'}`">
+
           <i v-if="icon" :class="icon" />
           {{ text || '-' }}
         </a>
-        <router-view v-else :to="link">
+        <router-link v-else :to="link">
           <i v-if="icon" :class="icon" />
           {{ text || '-' }}
-        </router-view>
+        </router-link>
       </template>
       <template v-else>
         <i v-if="icon" :class="icon" />
@@ -25,7 +33,8 @@ export default {
     height: { type: String, default: 'auto' },
     text: { type: String, default: '' },
     icon: { type: String, default: '' },
-    link: { type: String, default: '' }
+    link: { type: String, default: '' },
+    mail: { type: Boolean, default: false }
   },
   data () {
     return {}
@@ -36,6 +45,11 @@ export default {
     }
   },
   methods: {
+    isWebUrl (url) {
+      console.log(url)
+      const urlType = ['http', 'ftp']
+      return urlType.some(r => url.includes(r))
+    },
     handleClick (evt) {
       this.$emit('click', evt)
     }

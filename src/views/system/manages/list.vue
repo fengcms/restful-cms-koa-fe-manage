@@ -21,8 +21,13 @@
         </template>
       </el-table-column>
       <el-table-column prop="account" label="账号" width="150" />
+      <el-table-column prop="editor" width="150" label="常用编辑器" :formatter="tableColFormat" />
       <el-table-column prop="mobile" label="手机" width="130" />
-      <el-table-column prop="email" label="邮箱" width="240" />
+      <el-table-column prop="email" label="邮箱" width="180">
+        <template slot-scope="scope">
+          <OneLineText :link="`${scope.row.email}`" mail :text="scope.row.email" />
+        </template>
+      </el-table-column>
       <el-table-column prop="time" width="180" label="入驻时间" :formatter="tableColFormatDate" />
       <el-table-column fixed="right" align="center" label="操作" width="90">
         <template slot-scope="scope">
@@ -54,10 +59,14 @@ export default {
       },
       searchItems: [
         { label: '姓名', field: 'name-like', width: '100px' },
-        { label: '账号', field: 'account', width: '100px' },
-        { label: '手机', field: 'mobile', width: '100px' }
+        { label: '账号', field: 'account', width: '80px' },
+        { label: '手机', field: 'mobile', width: '80px' }
       ],
-      tableBase: {}
+      tableBase: {
+        editor: {
+          MARKDOWN: 'MarkDown 编辑器', RICHEDITOR: '富文本编辑器'
+        }
+      }
     }
   },
   methods: {

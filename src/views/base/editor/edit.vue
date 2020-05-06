@@ -17,6 +17,12 @@
         <el-form-item label="头像" prop="avatar">
           <UpImg v-model="form.avatar" :limit="1" />
         </el-form-item>
+        <el-form-item label="编辑器" prop="editor">
+          <el-radio-group v-model="form.editor">
+            <el-radio-button label="MARKDOWN">MarkDown 编辑器</el-radio-button>
+            <el-radio-button label="RICHEDITOR">富文本编辑器</el-radio-button>
+          </el-radio-group>
+        </el-form-item>
         <el-form-item label="手机" prop="mobile">
           <el-input v-model="form.mobile" :maxlength="11" style="width: 200px" />
         </el-form-item>
@@ -58,7 +64,8 @@ export default {
         mobile: '',
         email: '',
         website: '',
-        mark: ''
+        mark: '',
+        editor: ''
       },
       rules: {
         account: [
@@ -72,6 +79,9 @@ export default {
         name: [
           { required: true, message: '请输入姓名', trigger: 'blur' },
           { min: 1, max: 20, message: '长度在 2 到 20 个字符', trigger: 'blur' }
+        ],
+        editor: [
+          { required: true, message: '请选择常用编辑器', trigger: 'blur' }
         ],
         mobile: [
           { pattern: /^1[3456789]\d{9}$/i, message: '手机号格式不正确', trigger: 'blur' }
