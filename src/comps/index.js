@@ -14,13 +14,13 @@ import GoodsSKU from './GoodsSKU'
 import GoodsCycle from './GoodsCycle'
 import ImageList from './ImageList'
 import GoodsDetailImg from './GoodsDetailImg'
-import RichEditor from './RichEditor/index.vue'
 import FlexBox from './FlexBox'
 import FlexItem from './FlexItem'
 import CardItem from './CardItem'
 import PageMain from './PageMain'
 import TableImage from './TableImage'
-import MarkEditor from './MarkEditor'
+import RichEditor from './editor/RichEditor'
+import MarkEditor from './editor/MarkEditor'
 
 const comps = [
   TableList,

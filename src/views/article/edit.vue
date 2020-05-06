@@ -2,7 +2,7 @@
   <PageMain v-loading="pageInfo.loading">
     <el-form ref="ruleForm" :model="form" :rules="rules" label-width="80px">
       <el-form-item label="文章标题" prop="title">
-        <el-input v-model="form.title" style="width: 500px" />
+        <el-input v-model="form.title" clearable style="width: 500px" />
       </el-form-item>
       <el-form-item label="归属栏目" prop="channel">
         <el-cascader
@@ -17,17 +17,17 @@
         <UpImg v-model="form.img" :limit="1" />
       </el-form-item>
       <el-form-item label="作者" prop="author">
-        <el-input v-model="form.author" style="width: 200px" />
+        <el-input v-model="form.author" clearable style="width: 200px" />
       </el-form-item>
       <el-form-item label="来源" prop="origin">
-        <el-input v-model="form.origin" style="width: 200px" />
+        <el-input v-model="form.origin" clearable style="width: 200px" />
       </el-form-item>
       <el-form-item label="关键词" prop="tags">
-        <el-input v-model="form.tags" style="width: 500px" />
+        <el-input v-model="form.tags" clearable style="width: 500px" />
         <Tip>英文逗号隔开</Tip>
       </el-form-item>
       <el-form-item label="文章概要" prop="description">
-        <el-input v-model="form.description" type="textarea" :rows="3" placeholder="请输入文章概要" style="width: 500px" />
+        <el-input v-model="form.description" clearable type="textarea" :rows="3" placeholder="请输入文章概要" style="width: 500px" />
       </el-form-item>
       <el-form-item v-if="calcEditorType() !== 'MARKDOWN'" label="文章内容" prop="content">
         <RichEditor v-model="form.content" placeholder="请输入内容" />
@@ -35,7 +35,7 @@
       <el-form-item v-else label="文章内容" prop="markdown">
         <MarkEditor v-model="form.markdown" />
       </el-form-item>
-      <el-form-item label="编辑" prop="editor">
+      <el-form-item label="编辑" clearable prop="editor">
         <el-input v-model="form.editor" style="width: 200px" />
       </el-form-item>
       <el-form-item>
@@ -61,7 +61,12 @@ export default {
         title: '',
         content: '',
         markdown: '',
-        channel: []
+        channel: [],
+        description: '',
+        editor: '',
+        tags: '',
+        origin: '',
+        author: ''
       },
       rules: {
         title: [

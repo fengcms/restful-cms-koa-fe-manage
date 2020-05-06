@@ -6,10 +6,12 @@
 </template>
 <script>
 import { MarkdownPro } from 'vue-meditor'
+import upload from './mixin/upload'
 const editor = {}
 export default {
   name: 'MarkEditor',
   components: { MarkdownPro },
+  mixins: [upload],
   props: {
     value: {
       type: String,
@@ -22,8 +24,7 @@ export default {
       toolbars: {
         uploadImage: true,
         split: true
-      },
-      progress: 0
+      }
     }
   },
   watch: {
@@ -40,32 +41,10 @@ export default {
       editor.insert = el.insertContent
     },
     upImg (file) {
-      const formData = new FormData()
-      formData.set('file', file)
-      const xhr = new XMLHttpRequest()
-      xhr.open('post', '/api/v1/upload')
-      xhr.onload = () => {
-        if (xhr.status === 200) {
-          const res = JSON.parse(xhr.response || xhr.responseText)
-          if (res.status === 0) {
-            const imgMdStr = `\n![${file.name}](${res.data.path})\n`
-            editor.insert(imgMdStr)
-          } else {
-            this.$message.error('图片上传失败')
-          }
-          this.progress = 0
-        } else {
-          this.$message.error('图片上传失败')
-          this.progress = 0
-        }
-      }
-      xhr.upload.onprogress = (e) => {
-        // 上传进度
-        if (e.lengthComputable) {
-          this.progress = ~~(e.loaded / e.total * 100)
-        }
-      }
-      xhr.send(formData)
+      this.upload(file).then(({ name, path }) => {
+        const imgMdStr = `\n![${name}](${path})\n`
+        editor.insert(imgMdStr)
+      })
     }
   }
 }

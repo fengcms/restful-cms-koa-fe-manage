@@ -1,8 +1,9 @@
 <template>
   <div :class="{fullscreen:fullscreen}" class="tinymce-container" :style="{width: 'calc(100% - 2px)'}">
+    <div class="upload-progress" :style="`width:${progress}%`" />
     <textarea :id="tinymceId" class="tinymce-textarea" />
     <div class="editor-custom-btn-container">
-      <editorImage color="#1890ff" class="editor-upload-btn" @successCBK="imageSuccessCBK" />
+      <editorImage @progress="calcProgress" @success="imageSuccessCBK" />
     </div>
   </div>
 </template>
@@ -70,7 +71,8 @@ export default {
       hasChange: false,
       hasInit: false,
       tinymceId: this.id,
-      fullscreen: false
+      fullscreen: false,
+      progress: 0
     }
   },
   computed: {
@@ -174,11 +176,11 @@ export default {
     getContent () {
       window.tinymce.get(this.tinymceId).getContent()
     },
-    imageSuccessCBK (arr) {
-      const _this = this
-      arr.forEach(v => {
-        window.tinymce.get(_this.tinymceId).insertContent(`<img src="${v.url}" >`)
-      })
+    imageSuccessCBK (url) {
+      window.tinymce.get(this.tinymceId).insertContent(`<img src="${url}" />`)
+    },
+    calcProgress (progress) {
+      this.progress = progress
     }
   }
 }
@@ -186,8 +188,12 @@ export default {
 
 <style scoped>
 .tinymce-container {
+  padding-top: 2px;
   position: relative;
   line-height: normal;
+}
+.upload-progress {
+  position: absolute;top: 0;left: 0;height: 2px;background: green;
 }
 .tinymce-container>>>.mce-fullscreen {
   z-index: 10000;
@@ -199,8 +205,7 @@ export default {
 .editor-custom-btn-container {
   position: absolute;
   right: 4px;
-  top: 4px;
-  /*z-index: 2005;*/
+  top: 6px;
 }
 .fullscreen .editor-custom-btn-container {
   z-index: 10000;
