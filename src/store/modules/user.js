@@ -9,6 +9,7 @@ const getDefaultState = () => {
     name: '',
     avatar: '',
     role: 'editor',
+    editor: 'MARKDOWN',
     rsaKey: ''
   }
 }
@@ -28,8 +29,9 @@ const mutations = {
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
   },
-  SET_ROLE: (state, role) => {
+  SET_OTHER: (state, { role, editor }) => {
     state.role = role
+    state.editor = editor
   },
   SET_RSA_KEY: (state, rsaKey) => {
     state.rsaKey = rsaKey
@@ -72,10 +74,10 @@ const actions = {
           reject('校验失败，请重新登录！')
         }
 
-        const { name, account, avatar, role } = data
+        const { name, account, avatar, role, editor } = data
         commit('SET_NAME', name || account)
         commit('SET_AVATAR', avatar || '/image/manage-ico.jpg')
-        commit('SET_ROLE', role)
+        commit('SET_OTHER', { role, editor })
         resolve(data)
       }).catch(error => {
         reject(error)
