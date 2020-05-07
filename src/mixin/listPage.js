@@ -5,11 +5,9 @@ import { toType } from '@/utils/tools'
 export default {
   data () {
     return {
-      pageInfo: {
-        dontGetData: false
-      },
+      pageInfo: {},
       tableData: [],
-      searchItems: [],
+      searchItems: {},
       pageParams: {
         page: 0,
         pageSize: PageSize
@@ -24,43 +22,43 @@ export default {
     }
   },
   created () {
-    // 可通过 this.pageInfo.dontGetData 参数设定进入页面后不主动加载 this.getData()
-    !this.pageInfo.dontGetData && this.getData()
+    this.getData()
   },
   methods: {
     getData () {
-      // 优化页面数据接口，由一开始的 tableDataApiName 存放到了 pageInfo.listApiName 内，此处做新旧兼容处理
-      const apiName = (this.pageInfo ? this.pageInfo.listApiName : false) || this.tableDataApiName
+      // 页面数据接口
+      const apiName = this.pageInfo.listApiName || ''
       if (!apiName) {
         this.$message.error('列表数据接口配置错误，请前端检查代码！')
         return
       }
       // 如果有前置执行函数，优先执行（该方法与接下来的请求是异步关系，执行顺序没有必然优先）
-      this.beforeGetData && this.beforeGetData()
-      // 组织参数
-      const searchParams = this.calcSearchParams()
-      const params = { ...this.pageParams, ...searchParams }
-      this.tableLoading = true
-      request({
-        url: apiName,
-        method: 'get',
-        params: params
-      }).then(r => {
-        const { count, pageSize, list } = r.data
-        this.pageResult = { count, pageSize }
-        // 如果有执行完执行方法，则执行并传入接口返回结果
-        // this.afterGetData && this.afterGetData(r.data)
-        if (this.afterGetData) {
-          const afterGetData = this.afterGetData(r.data)
-          if (afterGetData) this.tableData = afterGetData
-        } else {
-          this.tableData = list
-        }
-      }).catch(e => {
-        this.tableData = []
-        console.log(e)
-      }).finally(() => {
-        this.tableLoading = false
+      const beforePromise = this.beforeGetData ? this.beforeGetData() : []
+      Promise.all(beforePromise).then(() => {
+        // 组织参数
+        const searchParams = this.calcSearchParams()
+        const params = { ...this.pageParams, ...searchParams }
+        this.tableLoading = true
+        request({
+          url: apiName,
+          method: 'get',
+          params: params
+        }).then(r => {
+          const { count, pageSize, list } = r.data
+          this.pageResult = { count, pageSize }
+          // 如果有执行完执行方法，则执行并传入接口返回结果
+          if (this.afterGetData) {
+            const afterGetData = this.afterGetData(r.data)
+            if (afterGetData) this.tableData = afterGetData
+          } else {
+            this.tableData = list
+          }
+        }).catch(e => {
+          this.tableData = []
+          console.log(e)
+        }).finally(() => {
+          this.tableLoading = false
+        })
       })
     },
     calcSearchParams () {
@@ -82,15 +80,15 @@ export default {
       for (const i in searchParamsTear) {
         const params = searchParams[i]
         /*
-            支持对象格式和字符串的拆解配参
-            Object time: { type: 'between', field: 'time' }
-              用于拆解字段与保存字段名不一致的情况
-            Object time: { type: 'between' }
-              上一种支持了，这个就顺便支持了
-            String time: 'between'
-              简写方法，推荐
-            以上配参方式都可以将 time 执行 between 拆解方法
-          */
+          支持对象格式和字符串的拆解配参
+          Object time: { type: 'between', field: 'time' }
+            用于拆解字段与保存字段名不一致的情况
+          Object time: { type: 'between' }
+            上一种支持了，这个就顺便支持了
+          String time: 'between'
+            简写方法，推荐
+          以上配参方式都可以将 time 执行 between 拆解方法
+        */
         const tearToType = toType(searchParamsTear[i])
         let type, field
         // 根据配参获得处理类型以及字段

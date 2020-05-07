@@ -80,17 +80,14 @@ export default {
       tableBase: {}
     }
   },
-  created () {
-    this.getBaseData()
-  },
   methods: {
-    getBaseData () {
-      getChannel().then(r => {
+    beforeGetData () {
+      const chan = getChannel().then(r => {
         const o = {}
         r.data.list.forEach(r => { o[r.id] = r.name })
         this.tableBase.channel_id = o
-        this.getData()
       })
+      return [chan]
     }
   }
 }
