@@ -25,8 +25,21 @@ export default {
       color: $color;
     }
   }
+  a, .iconfont {
+    color: #f60;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    margin: 0;padding: 5px 0;
+  }
+  table {
+    border-collapse: collapse;color: #555;
+    &, td, th {
+      border: 1px solid #ddd;
+    }
+    th, td {padding: 5px 8px;text-align: center;}
+  }
   &.block {
-    display: block;line-height: 1;padding: 5px 0;
+    display: block;line-height: 1.4;padding: 5px 0;
   }
 }
 </style>

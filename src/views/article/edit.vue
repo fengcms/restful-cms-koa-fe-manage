@@ -45,9 +45,35 @@
         <el-tab-pane label="文章内容" name="content">
           <el-form-item v-if="calcEditorType() !== 'MARKDOWN'" prop="content" label-width="0px">
             <RichEditor v-model="form.content" placeholder="请输入内容" />
+            <Tip v-if="!form.content" block>当前为富文本编辑器，推荐使用MardDown编辑器，点击上方切换编辑器按钮可临时切换！</Tip>
           </el-form-item>
           <el-form-item v-else prop="markdown" label-width="0px">
             <MarkEditor v-model="form.markdown" />
+            <Tip block type="primary">
+              MardDown 是现在流行的文档编辑器，对于文字工作者非常友好！<br>
+              本编辑器支持直接粘贴图片，你可以用QQ截屏或其他截屏软件，截图到粘贴板，然后在编辑区域粘贴(ctrl+c)，即可上传图片。 <br>
+              关于更多 MardDown 格式文档的学习，请点击
+              <a href="https://www.runoob.com/markdown/md-tutorial.html" target="_blank"> MardDown 教程</a>
+              来进行学习。<br>
+              <h3>特殊工具图标说明</h3>
+              <table>
+                <tr>
+                  <th>图标</th><th>功能</th>
+                  <th>图标</th><th>功能</th>
+                  <th>图标</th><th>功能</th>
+                </tr>
+                <tr>
+                  <td><i class="iconfont icon-upload-img" /></td><td>上传本地图片</td>
+                  <td><i class="iconfont icon-md" /></td><td>关闭预览</td>
+                  <td><i class="iconfont icon-preview" /></td><td>打开预览功能</td>
+                </tr>
+                <tr>
+                  <td><i class="iconfont icon-daoru" /></td><td>导入md文件（不咋好使）</td>
+                  <td><i class="iconfont icon-download" /></td><td>导出md文件</td>
+                  <td><i class="iconfont icon-fullscreen" /></td><td>全屏模式</td>
+                </tr>
+              </table>
+            </Tip>
           </el-form-item>
         </el-tab-pane>
       </el-tabs>
@@ -162,16 +188,24 @@ export default {
         channel.push(chanItem.id)
         if (chanItem.pid !== 0) calcChan(chanItem.pid)
       }
+      // 从接口拿过来的 channel_id 是一个数字，需要根据这个数字构建它归属栏目的数组数据
       calcChan(data.channel_id)
-      data.channel = channel.reverse()
+      data.channel = channel.reverse() // 得到的这个数组是反的，需要反转一下
       return data
     },
     // 计算提交参数，该方法在数据通过校验后，数据提交接口之前执行，可省略
     // 方法入参为通过校验的表单数据，处理好提交数据后，return 返回
     calcSubmitData (data) {
       data = { ...data }
+      const currEditorType = this.calcEditorType()
+      // 如果提交数据时，当前编辑器不是 markdown 编辑器，则将 markdown 字段内容清空
+      if (currEditorType !== 'MARKDOWN') data.markdown = ''
+
+      // 表单内 channel 是一个数组，这里需要把数组最后一位取出来，存为 channel_id
       data.channel_id = data.channel[data.channel.length - 1]
       delete data.channel
+
+      // 返回计算好的提交数据
       return data
     },
     // 表单数据未通过时执行方法，入参为错误信息，可省略
