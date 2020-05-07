@@ -39,16 +39,12 @@ export default {
     return {
       pageInfo: {
         listApiName: 'tags',
-        itemName: '关键词',
-        dontGetData: true
+        itemName: '关键词'
       },
-      searchParams: {
-        'name-like': ''
+      searchParams: {},
+      searchItems: {
+        'tag-like': '关键词'
       },
-      searchItems: [
-        { label: '作者名称', field: 'name-like', width: '100px' },
-        { label: '手机', field: 'mobile', width: '100px' }
-      ],
       tableBase: {},
       base: {
         treeChannel: [],
@@ -56,11 +52,8 @@ export default {
       }
     }
   },
-  created () {
-    this.getBaseData()
-  },
   methods: {
-    getBaseData () {
+    beforeGetData () {
       const chan = getChannel().then(r => {
         this.base.channel = r.data.list
         const o = {}
@@ -68,9 +61,7 @@ export default {
         this.tableBase.channel_id = o
       })
       const tree = getTreeChannel().then(r => { this.base.treeChannel = r.data })
-      Promise.all([chan, tree]).then(() => {
-        this.getData()
-      })
+      return [chan, tree]
     }
   }
 }

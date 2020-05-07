@@ -48,7 +48,6 @@ export default {
   },
   methods: {
     isWebUrl (url) {
-      console.log(url)
       const urlType = ['http', 'ftp']
       return urlType.some(r => url.includes(r))
     },

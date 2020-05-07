@@ -14,7 +14,7 @@
     >
       <el-table-column type="selection" align="center" width="45" />
       <el-table-column prop="id" align="center" label="ID" width="50" />
-      <el-table-column prop="name" label="小编姓名" min-width="140" />
+      <el-table-column prop="name" label="姓名" min-width="140" />
       <el-table-column label="头像" align="center" width="100">
         <template slot-scope="scope">
           <TableImage :src="scope.row.avatar" />
@@ -57,16 +57,12 @@ export default {
         listApiName: 'editor',
         itemName: '小编'
       },
-      searchParams: {
-        'name-like': '',
-        account: '',
-        mobile: ''
+      searchParams: {},
+      searchItems: {
+        'name-like': '姓名',
+        account: '账号',
+        mobile: '手机'
       },
-      searchItems: [
-        { label: '小编姓名', field: 'name-like', width: '100px' },
-        { label: '账号', field: 'account', width: '100px' },
-        { label: '手机', field: 'mobile', width: '100px' }
-      ],
       tableBase: {
         editor: {
           MARKDOWN: 'MarkDown 编辑器', RICHEDITOR: '富文本编辑器'

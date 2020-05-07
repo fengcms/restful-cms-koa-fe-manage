@@ -52,16 +52,12 @@ export default {
         listApiName: 'manages',
         itemName: '超级管理员'
       },
-      searchParams: {
-        'name-like': '',
-        account: '',
-        mobile: ''
+      searchParams: {},
+      searchItems: {
+        'name-like': '姓名',
+        account: '账号',
+        mobile: '手机'
       },
-      searchItems: [
-        { label: '姓名', field: 'name-like', width: '100px' },
-        { label: '账号', field: 'account', width: '80px' },
-        { label: '手机', field: 'mobile', width: '80px' }
-      ],
       tableBase: {
         editor: {
           MARKDOWN: 'MarkDown 编辑器', RICHEDITOR: '富文本编辑器'

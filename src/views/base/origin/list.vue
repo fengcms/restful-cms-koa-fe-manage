@@ -56,16 +56,12 @@ export default {
         listApiName: 'origin',
         itemName: '来源'
       },
-      searchParams: {
-        'name-like': '',
-        'contact-like': '',
-        mobile: ''
+      searchParams: {},
+      searchItems: {
+        'name-like': '姓名',
+        'contact-like': '联系人',
+        mobile: '手机'
       },
-      searchItems: [
-        { label: '来源名称', field: 'name-like', width: '100px' },
-        { label: '联系人', field: 'contact-like', width: '100px' },
-        { label: '手机', field: 'mobile', width: '100px' }
-      ],
       tableBase: {}
     }
   },

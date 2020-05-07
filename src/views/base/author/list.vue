@@ -14,8 +14,8 @@
     >
       <el-table-column type="selection" align="center" width="45" />
       <el-table-column prop="id" align="center" label="ID" width="50" />
-      <el-table-column prop="name" label="作者姓名" min-width="140" />
-      <el-table-column label="作者头像" align="center" width="100">
+      <el-table-column prop="name" label="姓名" min-width="140" />
+      <el-table-column label="头像" align="center" width="100">
         <template slot-scope="scope">
           <TableImage :src="scope.row.avatar" />
         </template>
@@ -55,13 +55,11 @@ export default {
         listApiName: 'author',
         itemName: '作者'
       },
-      searchParams: {
-        'name-like': ''
+      searchParams: {},
+      searchItems: {
+        'name-like': '姓名',
+        mobile: '手机'
       },
-      searchItems: [
-        { label: '作者名称', field: 'name-like', width: '100px' },
-        { label: '手机', field: 'mobile', width: '100px' }
-      ],
       tableBase: {}
     }
   },
