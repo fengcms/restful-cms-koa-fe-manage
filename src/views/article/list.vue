@@ -36,11 +36,11 @@
   </PageMain>
 </template>
 <script>
-import getTableData from '@/mixin/getTableData'
+import listPage from '@/mixin/listPage'
 import listEdit from '@/mixin/listEdit'
 import { getChannel } from '@/api/channel'
 export default {
-  mixins: [getTableData, listEdit],
+  mixins: [listPage, listEdit],
   data () {
     return {
       pageInfo: {

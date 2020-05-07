@@ -3,13 +3,15 @@
     <div
       :class="`one-line-text ${(link && link !== 'null') || isClick ? 'one-line-text-link': ''}`"
       :style="`height: ${height};`"
-      @click="handleClick">
+      @click="handleClick"
+    >
 
       <template v-if="link && link !== 'null'">
         <a
           v-if="mail || isWebUrl(link)"
           :href="`${mail ? 'mailto:' : ''}${link}`"
-          :target="`${link.includes('mailto') ? '' : '_blank'}`">
+          :target="`${link.includes('mailto') ? '' : '_blank'}`"
+        >
 
           <i v-if="icon" :class="icon" />
           {{ text || '-' }}
