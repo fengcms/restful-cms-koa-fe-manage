@@ -25,6 +25,7 @@
           <TableImage :src="scope.row.img" />
         </template>
       </el-table-column>
+      <el-table-column prop="status" label="状态" align="center" width="80" :formatter="tableColFormat" />
       <el-table-column prop="time" width="180" label="更新时间" :formatter="tableColFormatDate" />
       <el-table-column fixed="right" label="操作" align="center" width="90">
         <template slot-scope="scope">
@@ -54,17 +55,23 @@ export default {
       },
       // 数组搜索参数拆解配置
       searchParamsTear: {
-        // time: { type: 'between', field: 'time' }
-        time: { type: 'between' }
-        // time: 'between'
+        time: 'between'
       },
-      searchItems: [
-        { label: '文章标题', field: 'title-like' },
-        {
-          type: 'datePicker', label: '时间区间', field: 'time',
-          pickerType: 'daterange', startPlaceholder: '开始时间', endPlaceholder: '结束时间'
+      searchItems: {
+        'title-like': '标题',
+        time: {
+          type: 'datePicker', label: '时间区间', pickerType: 'datetimerange'
+        },
+        status: {
+          type: 'select', label: '状态',
+          options: [
+            { label: '普通', value: 'NORMAL' },
+            { label: '热门', value: 'HOT' },
+            { label: '最新', value: 'NEW' },
+            { label: '隐藏', value: 'HIDE' }
+          ]
         }
-      ],
+      },
       tableBase: {}
     }
   },

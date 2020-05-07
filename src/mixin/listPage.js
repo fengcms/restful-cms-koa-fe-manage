@@ -69,17 +69,19 @@ export default {
       const tearTypes = {
         // 区间计算方法，将一个两位的数组处理成用中划线隔开的字符串
         // 如 [1, 2] >>> '1-2', [1] >>> '1', [] >>> ''
-        between (field, params) {
+        between (params) {
           const [start = '', end = ''] = params
           return start + (start && end && '-') + end
+        },
+        join (params) {
+          return params.join(',')
         }
         // 更多类型可根据需要在这里增加
       }
       // 循环处理各个搜索拆解参数
       for (const i in searchParamsTear) {
         const params = searchParams[i]
-        if (params) {
-          /*
+        /*
             支持对象格式和字符串的拆解配参
             Object time: { type: 'between', field: 'time' }
               用于拆解字段与保存字段名不一致的情况
@@ -89,24 +91,23 @@ export default {
               简写方法，推荐
             以上配参方式都可以将 time 执行 between 拆解方法
           */
-          const tearToType = toType(searchParamsTear[i])
-          let type, field
-          // 根据配参获得处理类型以及字段
-          if (tearToType === 'object') {
-            type = searchParamsTear[i].type
-            field = searchParamsTear[i].field || i
-            delete searchParams[i]
-          }
-          if (tearToType === 'string') {
-            type = searchParamsTear[i]
-            field = i
-          }
-          // 方法被支持则执行，否则报错
-          if (tearTypes[type]) {
-            searchParams[field] = tearTypes[type](field, params)
-          } else {
-            console.error(new Error('搜索配参类型不被支持，请检查搜索配参字段 searchParamsTear: ' + i))
-          }
+        const tearToType = toType(searchParamsTear[i])
+        let type, field
+        // 根据配参获得处理类型以及字段
+        if (tearToType === 'object') {
+          type = searchParamsTear[i].type
+          field = searchParamsTear[i].field || i
+          delete searchParams[i]
+        }
+        if (tearToType === 'string') {
+          type = searchParamsTear[i]
+          field = i
+        }
+        // 方法被支持则执行，否则报错
+        if (tearTypes[type]) {
+          searchParams[field] = tearTypes[type](params)
+        } else {
+          console.error(new Error('搜索配参类型不被支持，请检查搜索配参字段 searchParamsTear: ' + i))
         }
       }
       return searchParams
@@ -131,24 +132,24 @@ export default {
       this.selectionArray = [...r]
     },
     // 表格列数据格式化函数
-    tableColFormat (row, col) {
-      const calcRes = () => {
-        // 首先从 tableBase 数据中查看，看有无配置字典以及字典中是否有对应的值
-        return this.tableBase[col.property] ? this.tableBase[col.property][row[col.property]] : ''
-      }
-      let res = calcRes()
+    tableColFormat (row, col, val) {
+      const feild = col.property
+      const baseDict = this.tableBase[feild]
+      // 首先从字典中查看，看有无配置字典以及字典中是否有对应的值
+      const calcRes = dict => dict ? dict[val] : ''
+
+      let res = calcRes(baseDict)
       // 如果字典中不存在，则尝试在搜索配置项中查找是否有同源数据
       if (!res) {
-        const searchItems = this.searchItems.filter(i => i.field === col.property)
-        if (searchItems.length && searchItems[0].option && searchItems[0].option.length) {
-          // 如果字典中未配置数据，则将搜索项中的同源数据整理并赋值到 tableBase 里面去，避免多行数据每次到这里进行数组过滤的复杂运算
-          if (!this.tableBase[col.property]) {
-            this.tableBase[col.property] = {}
-            searchItems[0].option.forEach(i => {
-              this.tableBase[col.property][i.value] = i.label
-            })
-            res = calcRes()
-          }
+        const searchItems = this.searchItems[feild]
+        // 如果字典中未配置数据，则将搜索项中的同源数据整理并赋值到 tableBase 里面去，避免多行数据每次到这里进行数组过滤的复杂运算
+        if (!baseDict && searchItems && searchItems.options && searchItems.options.length) {
+          const dict = {}
+          searchItems.options.forEach(i => {
+            dict[i.value] = i.label
+          })
+          this.tableBase[feild] = dict
+          res = calcRes(dict)
         }
       }
       return res || '配参异常'
