@@ -59,7 +59,7 @@
           :placeholder="i.placeholder"
           :start-placeholder="i.startPlaceholder"
           :end-placeholder="i.endPlaceholder"
-          :value-format="i.format || `yyyy-MM-dd HH:mm:ss`"
+          :value-format="i.format || `timestamp`"
         />
         <!-- 联级菜单 -->
         <el-cascader

@@ -50,16 +50,18 @@ export default {
       },
       searchParams: {
         'title-like': '',
-        timeRange: []
+        time: []
       },
       // 数组搜索参数拆解配置
       searchParamsTear: {
-        timeRange: ['startDate', 'endDate']
+        // time: { type: 'between', field: 'time' }
+        time: { type: 'between' }
+        // time: 'between'
       },
       searchItems: [
         { label: '文章标题', field: 'title-like' },
         {
-          type: 'datePicker', label: '时间区间', field: 'timeRange',
+          type: 'datePicker', label: '时间区间', field: 'time',
           pickerType: 'daterange', startPlaceholder: '开始时间', endPlaceholder: '结束时间'
         }
       ],

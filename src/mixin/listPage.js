@@ -1,7 +1,7 @@
 import dayjs from 'dayjs'
 import request from '@/utils/request'
 import { PageSize } from '@/config/index'
-// import { calcNumberString } from '@/utils/tools'
+import { toType } from '@/utils/tools'
 export default {
   data () {
     return {
@@ -65,20 +65,49 @@ export default {
     },
     calcSearchParams () {
       const searchParams = { ...this.searchParams } || {}
-      // 处理搜索参数数组分拆为多个值得情况，如将地区ID数组，分拆为 areaId1 areaId2 areaId3 这样的
       const searchParamsTear = { ...this.searchParamsTear } || {}
-      for (const i in searchParamsTear) {
-        searchParamsTear[i].forEach((val, index) => {
-          searchParams[i][index] && (searchParams[val] = searchParams[i][index])
-        })
-        delete searchParams[i]
+      const tearTypes = {
+        // 区间计算方法，将一个两位的数组处理成用中划线隔开的字符串
+        // 如 [1, 2] >>> '1-2', [1] >>> '1', [] >>> ''
+        between (field, params) {
+          const [start = '', end = ''] = params
+          return start + (start && end && '-') + end
+        }
+        // 更多类型可根据需要在这里增加
       }
-      // 处理搜索参数数组取最后一个值的情况，如取分类ID，只需要最后一位
-      const searchParamsPop = { ...this.searchParamsPop } || {}
-      for (const i in searchParamsPop) {
-        const pop = searchParams[i].pop()
-        pop != null && (searchParams[searchParamsPop[i]] = pop)
-        delete searchParams[i]
+      // 循环处理各个搜索拆解参数
+      for (const i in searchParamsTear) {
+        const params = searchParams[i]
+        if (params) {
+          /*
+            支持对象格式和字符串的拆解配参
+            Object time: { type: 'between', field: 'time' }
+              用于拆解字段与保存字段名不一致的情况
+            Object time: { type: 'between' }
+              上一种支持了，这个就顺便支持了
+            String time: 'between'
+              简写方法，推荐
+            以上配参方式都可以将 time 执行 between 拆解方法
+          */
+          const tearToType = toType(searchParamsTear[i])
+          let type, field
+          // 根据配参获得处理类型以及字段
+          if (tearToType === 'object') {
+            type = searchParamsTear[i].type
+            field = searchParamsTear[i].field || i
+            delete searchParams[i]
+          }
+          if (tearToType === 'string') {
+            type = searchParamsTear[i]
+            field = i
+          }
+          // 方法被支持则执行，否则报错
+          if (tearTypes[type]) {
+            searchParams[field] = tearTypes[type](field, params)
+          } else {
+            console.error(new Error('搜索配参类型不被支持，请检查搜索配参字段 searchParamsTear: ' + i))
+          }
+        }
       }
       return searchParams
     },
