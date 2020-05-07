@@ -1,9 +1,9 @@
 <template>
   <div class="control-box">
-    <el-button-group ref="leftBtns">
+    <el-button-group ref="leftBtns" size="small">
       <slot />
     </el-button-group>
-    <el-button-group ref="rightBtns">
+    <el-button-group ref="rightBtns" size="small">
       <slot name="right" />
     </el-button-group>
   </div>

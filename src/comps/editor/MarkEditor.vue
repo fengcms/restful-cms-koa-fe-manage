@@ -29,7 +29,7 @@ export default {
   },
   watch: {
     value (val) {
-      this.content = val
+      this.content = val || ''
     },
     content (val) {
       this.$emit('input', val)
@@ -39,7 +39,7 @@ export default {
     ready (el) {
       editor.vm = el.vm
       editor.insert = el.insertContent
-      this.content = this.value
+      this.content = this.value || ''
     },
     upImg (file) {
       this.upload(file).then(({ name, path }) => {

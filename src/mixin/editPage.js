@@ -37,7 +37,7 @@ export default {
       })
     },
     submit () {
-      this.$refs.ruleForm.validate((valid) => {
+      this.$refs.ruleForm.validate((valid, msg) => {
         if (valid) {
           const { apiName, editId, itemName } = this.pageInfo
           const data = this.calcSubmitData ? this.calcSubmitData(this.form) : { ...this.form }
@@ -62,6 +62,8 @@ export default {
           }).finally(() => {
             this.pageInfo.sumbiting = false
           })
+        } else {
+          this.submitError && this.submitError(msg)
         }
       })
     },

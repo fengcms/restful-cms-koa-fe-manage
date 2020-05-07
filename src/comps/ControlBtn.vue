@@ -1,5 +1,5 @@
 <template>
-  <el-button :type="type" :size="calcSize" :icon="icon" @click="handleClick">
+  <el-button :type="type" :loading="loading" :size="calcSize" :icon="icon" @click="handleClick">
     <slot />
   </el-button>
 </template>
@@ -18,11 +18,15 @@ export default {
     icon: {
       type: String,
       default: ''
+    },
+    loading: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
     calcSize () {
-      return this.$parent.$attrs.size ? this.$parent.$attrs.size : this.size
+      return this.$parent.$attrs.size || this.size
     }
   },
   methods: {

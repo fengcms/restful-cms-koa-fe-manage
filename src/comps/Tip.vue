@@ -26,7 +26,7 @@ export default {
     }
   }
   &.block {
-    display: block;
+    display: block;line-height: 1;padding: 5px 0;
   }
 }
 </style>
