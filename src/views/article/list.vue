@@ -44,19 +44,23 @@ export default {
   mixins: [listPage, listEdit],
   data () {
     return {
+      // 页面基本信息
       pageInfo: {
         dontGetData: true,
         listApiName: 'article',
         itemName: '文章'
       },
+      // 搜索项配置默认参数，为空的默认参数可不填写
       searchParams: {
-        'title-like': '',
-        time: []
+        // 'title-like': '',
+        // time: []
       },
       // 数组搜索参数拆解配置
+      // 详细配置查看 src/mixin/listPage.js calcSearchParams 函数注释
       searchParamsTear: {
         time: 'between'
       },
+      // 页面搜索项配置，详细配置查看 src/comps/TableSearch.vue 注释
       searchItems: {
         'title-like': '标题',
         time: {
@@ -72,6 +76,7 @@ export default {
           ]
         }
       },
+      // 表格字段数据格式化配参字典
       tableBase: {}
     }
   },

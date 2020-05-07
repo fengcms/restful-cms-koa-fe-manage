@@ -69,7 +69,7 @@ export default {
       const tearTypes = {
         // 区间计算方法，将一个两位的数组处理成用中划线隔开的字符串
         // 如 [1, 2] >>> '1-2', [1] >>> '1', [] >>> ''
-        between (params) {
+        between (params = []) {
           const [start = '', end = ''] = params
           return start + (start && end && '-') + end
         },
