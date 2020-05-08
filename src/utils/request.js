@@ -31,7 +31,7 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   response => {
     const res = response.data
-    if (res.status !== 0) {
+    if (response.status !== 200 || res.status !== 0) {
       Message({
         message: res.msg || res.data || 'Error',
         type: 'error',
@@ -39,7 +39,7 @@ service.interceptors.response.use(
       })
       return Promise.reject(new Error(res.msg || res.data || 'Error'))
     } else {
-      return res
+      return Promise.resolve(res)
     }
   },
   error => {

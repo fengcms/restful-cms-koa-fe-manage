@@ -1,5 +1,9 @@
 <template>
   <PageMain>
+    <ControlBox>
+      <ControlBtn icon="el-icon-arrow-left" type="default" @click="$router.push('/')">返回后台首页</ControlBtn>
+      <ControlBtn icon="el-icon-user" @click="$router.push('/profile')">维护个人信息</ControlBtn>
+    </ControlBox>
     <el-form ref="ruleForm" :model="form" :rules="rules" label-width="80px">
       <el-form-item label="原密码" prop="oldPassword">
         <el-input v-model="form.oldPassword" style="width: 200px" />

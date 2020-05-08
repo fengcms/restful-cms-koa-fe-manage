@@ -135,6 +135,11 @@ export const constantRoutes = [
         path: '/changePassword',
         component: () => import('@/views/system/changePassword'),
         hidden: true
+      },
+      {
+        path: '/profile',
+        component: () => import('@/views/system/profile'),
+        hidden: true
       }
     ]
   },

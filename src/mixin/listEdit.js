@@ -31,7 +31,6 @@ export default {
         this.editStatus.editId = o
       }
       setTimeout(() => {
-        console.log(this.editStatus)
         this.editStatus.showEdit = true
       }, 500)
     },
