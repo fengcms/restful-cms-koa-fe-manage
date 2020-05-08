@@ -49,30 +49,32 @@
           </el-form-item>
           <el-form-item v-else prop="markdown" label-width="0px">
             <MarkEditor v-model="form.markdown" />
-            <Tip block type="primary">
-              MardDown 是现在流行的文档编辑器，对于文字工作者非常友好！<br>
-              本编辑器支持直接粘贴图片，你可以用QQ截屏或其他截屏软件，截图到粘贴板，然后在编辑区域粘贴(ctrl+c)，即可上传图片。 <br>
-              关于更多 MardDown 格式文档的学习，请点击
-              <a href="https://www.runoob.com/markdown/md-tutorial.html" target="_blank"> MardDown 教程</a>
-              来进行学习。<br>
-              <h3>特殊工具图标说明</h3>
-              <table>
-                <tr>
-                  <th>图标</th><th>功能</th>
-                  <th>图标</th><th>功能</th>
-                  <th>图标</th><th>功能</th>
-                </tr>
-                <tr>
-                  <td><i class="iconfont icon-upload-img" /></td><td>上传本地图片</td>
-                  <td><i class="iconfont icon-md" /></td><td>关闭预览</td>
-                  <td><i class="iconfont icon-preview" /></td><td>打开预览功能</td>
-                </tr>
-                <tr>
-                  <td><i class="iconfont icon-daoru" /></td><td>导入md文件（不咋好使）</td>
-                  <td><i class="iconfont icon-download" /></td><td>导出md文件</td>
-                  <td><i class="iconfont icon-fullscreen" /></td><td>全屏模式</td>
-                </tr>
-              </table>
+            <Tip block type="primary" text="MardDown 编辑器帮助">
+              <template slot="dialog">
+                MardDown 是现在流行的文档编辑器，对于文字工作者非常友好！<br>
+                本编辑器支持直接粘贴图片，你可以用QQ截屏或其他截屏软件，截图到粘贴板，然后在编辑区域粘贴(ctrl+c)，即可上传图片。 <br>
+                关于更多 MardDown 格式文档的学习，请点击
+                <a href="https://www.runoob.com/markdown/md-tutorial.html" target="_blank"> MardDown 教程</a>
+                来进行学习。<br>
+                <h3>特殊工具图标说明</h3>
+                <table>
+                  <tr>
+                    <th>图标</th><th>功能</th>
+                    <th>图标</th><th>功能</th>
+                    <th>图标</th><th>功能</th>
+                  </tr>
+                  <tr>
+                    <td><i class="iconfont icon-upload-img" /></td><td>上传本地图片</td>
+                    <td><i class="iconfont icon-md" /></td><td>关闭预览</td>
+                    <td><i class="iconfont icon-preview" /></td><td>打开预览功能</td>
+                  </tr>
+                  <tr>
+                    <td><i class="iconfont icon-daoru" /></td><td>导入md文件</td>
+                    <td><i class="iconfont icon-download" /></td><td>导出md文件</td>
+                    <td><i class="iconfont icon-fullscreen" /></td><td>全屏模式</td>
+                  </tr>
+                </table>
+              </template>
             </Tip>
           </el-form-item>
         </el-tab-pane>
@@ -93,7 +95,7 @@ export default {
         apiName: 'article', // 编辑页面接口名称
         itemName: '文章', // 编辑页面项目名称
         // 以下为页面自定义参数
-        tabActive: 'base',
+        tabActive: 'content',
         tempEditor: null
       },
       // 表单初始数据

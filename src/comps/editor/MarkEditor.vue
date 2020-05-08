@@ -5,7 +5,7 @@
   </div>
 </template>
 <script>
-import { MarkdownPro } from 'vue-meditor'
+import { MarkdownPro } from 'vue-meditor-fungleo'
 import upload from './mixin/upload'
 const editor = {}
 export default {
@@ -29,7 +29,7 @@ export default {
   },
   watch: {
     value (val) {
-      this.content = val || this.hackFixEditorInitBug()
+      this.content = val
     },
     content (val) {
       this.$emit('input', val)
@@ -39,10 +39,7 @@ export default {
     ready (el) {
       editor.vm = el.vm
       editor.insert = el.insertContent
-      this.content = this.value || this.hackFixEditorInitBug()
-    },
-    hackFixEditorInitBug () {
-      return '\n\n\n\n\n\n\n\n\n'
+      this.content = this.value
     },
     upImg (file) {
       this.upload(file).then(({ name, path }) => {

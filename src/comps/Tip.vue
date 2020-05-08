@@ -1,8 +1,11 @@
 <template>
   <span :class="`niao-tip niao-tip-${type} ${block ? 'block' : ''}`">
     <i v-if="icon" :class="icon" />
-    <span v-html="text" />
+    <span :class="{cursor: $slots.dialog}" @click="openDialog" v-html="text" />
     <slot />
+    <el-dialog v-if="$slots.dialog" class="niao-tip-dialog" width="600px" :title="text" :visible.sync="dialogVisible" destroy-on-close append-to-body>
+      <slot name="dialog" />
+    </el-dialog>
   </span>
 </template>
 <script>
@@ -13,6 +16,18 @@ export default {
     block: { type: Boolean, default: false },
     icon: { type: String, default: 'el-icon-info' },
     type: { type: String, default: 'warning' }
+  },
+  data () {
+    return {
+      dialogVisible: false
+    }
+  },
+  methods: {
+    openDialog () {
+      if (this.$slots.dialog) {
+        this.dialogVisible = true
+      }
+    }
   }
 }
 </script>
@@ -25,6 +40,13 @@ export default {
       color: $color;
     }
   }
+  &.block {
+    display: block;line-height: 1.4;padding: 5px 0;
+  }
+  .cursor { cursor: pointer; }
+}
+.niao-tip-dialog {
+  line-height: 1.6;
   a, .iconfont {
     color: #f60;
   }
@@ -37,9 +59,6 @@ export default {
       border: 1px solid #ddd;
     }
     th, td {padding: 5px 8px;text-align: center;}
-  }
-  &.block {
-    display: block;line-height: 1.4;padding: 5px 0;
   }
 }
 </style>
