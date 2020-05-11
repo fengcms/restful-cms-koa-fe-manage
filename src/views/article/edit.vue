@@ -95,7 +95,7 @@ export default {
         apiName: 'article', // 编辑页面接口名称
         itemName: '文章', // 编辑页面项目名称
         // 以下为页面自定义参数
-        tabActive: 'content',
+        tabActive: 'base',
         tempEditor: null
       },
       // 表单初始数据
