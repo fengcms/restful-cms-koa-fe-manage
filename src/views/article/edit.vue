@@ -128,9 +128,6 @@ export default {
         ],
         channel: [
           { required: true, message: '请选择文章归属栏目', trigger: 'blur' }
-        ],
-        tags: [
-          { required: true, message: '请选择文章归属栏目', trigger: 'blur' }
         ]
       },
       // 页面基础字典数据

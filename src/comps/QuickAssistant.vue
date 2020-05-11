@@ -5,6 +5,7 @@
       title="快速选择助手"
       :visible.sync="isShowBox"
       width="600px"
+      append-to-body
     >
       <div class="niao-quick-assistant-search">
         <TableSearch v-if="isShowBox" size="small" :model="searchParams" :items="searchItems" @upSearchParams="upSearchParams" />

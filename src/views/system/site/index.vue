@@ -12,7 +12,8 @@
       </el-form-item>
       <el-form-item label="关键词" prop="keywords">
         <el-input v-model="form.keywords" style="width: 500px" />
-        <Tip>英文逗号隔开</Tip>
+        <QuickAssistant v-model="form.keywords" type="tags" mode="append" />
+        <Tip block>英文逗号隔开</Tip>
       </el-form-item>
       <el-form-item label="站点描述" prop="description">
         <el-input v-model="form.description" type="textarea" :rows="3" style="width: 500px" />

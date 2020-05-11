@@ -18,7 +18,9 @@
           <el-input-number v-model="form.sort" :step="1" :precision="0" style="width: 200px" />
         </el-form-item>
         <el-form-item label="关键词" prop="keywords">
-          <el-input v-model="form.keywords" autocomplete="off" style="width: 500px" />
+          <el-input v-model="form.keywords" autocomplete="off" style="width: 300px" />
+          <QuickAssistant v-model="form.keywords" type="tags" mode="append" />
+          <Tip block>英文逗号隔开</Tip>
         </el-form-item>
         <el-form-item label="栏目描述" prop="description">
           <el-input v-model="form.description" type="textarea" autocomplete="off" style="width: 500px" />
