@@ -1,6 +1,6 @@
 <template>
   <div class="page-search-box">
-    <el-form ref="searchParams" :model="searchParams" :inline="true">
+    <el-form ref="searchParams" :model="searchParams" :inline="true" :size="size || $ELEMENT.size">
       <el-form-item v-for="(i, k) in searchItems" :key="k" :label="i.label" :prop="k" :class="`${i.unit ? 'niao-search-form-item' : ''}`">
         <!-- 文本框 -->
         <el-input
@@ -188,7 +188,8 @@ export default {
     // 是否开启实时搜索
     realtime: { type: Boolean, default: false },
     // 是否需要重置按钮
-    noreset: { type: Boolean, default: false }
+    noreset: { type: Boolean, default: false },
+    size: { type: String, default: '' }
   },
   data () {
     return {

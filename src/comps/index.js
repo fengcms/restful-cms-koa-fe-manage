@@ -15,6 +15,7 @@ import PageMain from './PageMain'
 import TableImage from './TableImage'
 import RichEditor from './editor/RichEditor'
 import MarkEditor from './editor/MarkEditor'
+import QuickAssistant from './QuickAssistant'
 
 const comps = [
   TableList,
@@ -33,7 +34,8 @@ const comps = [
   CardItem,
   PageMain,
   TableImage,
-  MarkEditor
+  MarkEditor,
+  QuickAssistant
 ]
 
 const install = function (Vue, opts = {}) {
@@ -60,5 +62,6 @@ export default {
   CardItem,
   PageMain,
   TableImage,
-  MarkEditor
+  MarkEditor,
+  QuickAssistant
 }

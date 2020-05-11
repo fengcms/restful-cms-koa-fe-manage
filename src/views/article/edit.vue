@@ -22,7 +22,8 @@
             />
           </el-form-item>
           <el-form-item label="关键词" prop="tags">
-            <el-input v-model="form.tags" clearable style="width: 500px" />
+            <el-input v-model="form.tags" clearable style="width: 300px;" />
+            <QuickAssistant v-model="form.tags" type="tags" mode="append" />
             <Tip block>英文逗号隔开</Tip>
           </el-form-item>
           <el-form-item label="文章概要" prop="description">
@@ -34,12 +35,15 @@
           </el-form-item>
           <el-form-item label="作者" prop="author">
             <el-input v-model="form.author" clearable style="width: 200px" />
+            <QuickAssistant v-model="form.author" type="author" />
           </el-form-item>
           <el-form-item label="来源" prop="origin">
             <el-input v-model="form.origin" clearable style="width: 200px" />
+            <QuickAssistant v-model="form.origin" type="origin" />
           </el-form-item>
           <el-form-item label="编辑" clearable prop="editor">
             <el-input v-model="form.editor" style="width: 200px" />
+            <QuickAssistant v-model="form.editor" type="editor" />
           </el-form-item>
         </el-tab-pane>
         <el-tab-pane label="文章内容" name="content">
@@ -137,7 +141,9 @@ export default {
     }
   },
   computed: { ...mapState(['user']) },
-  created () {},
+  created () {
+    console.log(this.$ELEMENT.size)
+  },
   methods: {
     // 临时切换编辑器类型
     changeTempEditor () {

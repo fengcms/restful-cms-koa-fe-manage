@@ -46,7 +46,6 @@ export default {
     return {
       // 页面基本信息
       pageInfo: {
-        dontGetData: true,
         listApiName: 'article',
         itemName: '文章'
       },

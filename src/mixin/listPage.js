@@ -5,7 +5,9 @@ import { toType } from '@/utils/tools'
 export default {
   data () {
     return {
-      pageInfo: {},
+      pageInfo: {
+        dontGetData: false
+      },
       tableData: [],
       searchItems: {},
       pageParams: {
@@ -22,7 +24,7 @@ export default {
     }
   },
   created () {
-    this.getData()
+    !this.pageInfo.dontGetData && this.getData()
   },
   methods: {
     getData () {
