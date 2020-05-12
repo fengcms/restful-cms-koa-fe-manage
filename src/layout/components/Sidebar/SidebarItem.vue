@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!item.hidden">
+  <div v-if="!item.hidden && hasRole(item)">
     <template v-if="hasOneShowingChild(item.children,item) && (!onlyOneChild.children||onlyOneChild.noShowingChildren)&&!item.alwaysShow">
       <app-link v-if="onlyOneChild.meta" :to="resolvePath(onlyOneChild.path)">
         <el-menu-item :index="resolvePath(onlyOneChild.path)" :class="{'submenu-title-noDropdown':!isNest}">
@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import path from 'path'
 import { isExternal } from '@/utils/validate'
 import Item from './Item'
@@ -51,10 +52,11 @@ export default {
     }
   },
   data () {
-    // To fix https://github.com/PanJiaChen/vue-admin-template/issues/237
-    // TODO: refactor with render function
     this.onlyOneChild = null
     return {}
+  },
+  computed: {
+    ...mapState(['user'])
   },
   methods: {
     hasOneShowingChild (children = [], parent) {
@@ -89,6 +91,12 @@ export default {
         return this.basePath
       }
       return path.resolve(this.basePath, routePath)
+    },
+    hasRole (route) {
+      const { meta = {}} = route
+      const { roles } = meta
+      const { role } = this.user
+      return !roles || (roles.includes(role))
     }
   }
 }

@@ -106,7 +106,7 @@ export const constantRoutes = [
       {
         path: 'editor',
         component: () => import('@/views/base/editor/list'),
-        meta: { title: '小编管理' }
+        meta: { title: '小编管理', roles: ['admin'] }
       },
       {
         path: 'tags',
@@ -118,7 +118,7 @@ export const constantRoutes = [
   {
     path: '/system',
     component: Layout,
-    meta: { title: '系统管理', icon: 'base' },
+    meta: { title: '系统管理', icon: 'base', roles: ['admin'] },
     alwaysShow: true,
     children: [
       {
@@ -129,7 +129,7 @@ export const constantRoutes = [
       {
         path: 'manages',
         component: () => import('@/views/system/manages/list'),
-        meta: { title: '超级管理员管理' }
+        meta: { title: '超级管理员管理', roles: ['admin'] }
       },
       {
         path: '/changePassword',

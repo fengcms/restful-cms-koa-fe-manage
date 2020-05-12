@@ -1,17 +1,17 @@
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-text">name: {{ name }}</div>
+    <div class="dashboard-text">role: {{ user.role }}</div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   name: 'Dashboard',
   computed: {
-    ...mapGetters([
-      'name'
+    ...mapState([
+      'user'
     ])
   }
 }

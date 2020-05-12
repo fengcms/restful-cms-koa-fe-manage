@@ -14,7 +14,7 @@ service.interceptors.request.use(
   config => {
     // do something before request is sent
     if (store.getters.token) {
-      config.headers['X-Token'] = getToken()
+      config.headers['token'] = getToken()
     }
     config.data = filterNull(config.data)
     config.params = filterNull(config.params)
