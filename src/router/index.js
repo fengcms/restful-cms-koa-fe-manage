@@ -118,7 +118,7 @@ export const constantRoutes = [
   {
     path: '/system',
     component: Layout,
-    meta: { title: '系统管理', icon: 'base', roles: ['admin'] },
+    meta: { title: '系统管理', icon: 'setting', roles: ['admin'] },
     alwaysShow: true,
     children: [
       {
